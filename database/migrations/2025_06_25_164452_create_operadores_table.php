@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('nome');
             $table->string('cpf')->unique();
             $table->string('telefone')->nullable();
-            $table->string('cnh')->nullable();
+            $table->enum('status',['livre','em_servico'])->default('livre');
+            $table->enum('categoria_cnh',['A','B','AB','C','D','E'])->default('A');
             $table->timestamps();
         });
     }

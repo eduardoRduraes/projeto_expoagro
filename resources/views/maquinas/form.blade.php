@@ -15,7 +15,12 @@
 
 <div class="mb-3">
     <label for="tipo" class="form-label">Tipo</label>
-    <input type="text" class="form-control" id="tipo" name="tipo" value="{{ old('tipo', $maquina->tipo ?? '') }}" required>
+    <select class="form-select" id="tipo" name="tipo" required>
+        <option value="emplemento" {{ old('tipo', $maquina->tipo ?? '') == 'emplemento' ? 'selected' : '' }}>Emplemento</option>
+        <option value="caminhao" {{ old('tipo', $maquina->tipo ?? '') == 'caminhao' ? 'selected' : '' }}>Caminhão</option>
+        <option value="carro" {{ old('tipo', $maquina->tipo ?? '') == 'carro' ? 'selected' : '' }}>Carro</option>
+        <option value="trator" {{ old('tipo', $maquina->tipo ?? '') == 'trator' ? 'selected' : '' }}>Trator</option>
+    </select>
 </div>
 
 <div class="mb-3">
@@ -25,10 +30,13 @@
 
 <div class="mb-3">
     <label for="status" class="form-label">Status</label>
-    <select class="form-select" id="status" name="status" required>
+    <select class="form-select" id="status" name="status" {{ isset($maquina) ? 'disabled' : '' }} required>
         <option value="ativo" {{ old('status', $maquina->status ?? '') == 'ativo' ? 'selected' : '' }}>Ativo</option>
-        <option value="manutencao" {{ old('status', $maquina->status ?? '') == 'manutencao' ? 'selected' : '' }}>Manutenção</option>
         <option value="inativo" {{ old('status', $maquina->status ?? '') == 'inativo' ? 'selected' : '' }}>Inativo</option>
     </select>
-</div>
 
+    {{-- Campo hidden para manter o valor do status ao editar --}}
+    @if(isset($maquina))
+        <input type="hidden" name="status" value="{{ $maquina->status }}">
+    @endif
+</div>

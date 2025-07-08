@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('nome');
             $table->string('modelo')->nullable();
             $table->string('numero_serie')->unique();
-            $table->string('tipo');
+            $table->enum('tipo',['emplemento','caminhao','carro','trator']);
             $table->year('ano');
             $table->decimal('horas_totais', 8, 3)->default(0);
-            $table->enum('status', ['ativo', 'manutencao','inativo'])->default('ativo');
+            $table->enum('status', ['ativo', 'manutencao','em_servico','inativo'])->default('ativo');
             $table->timestamps();
         });
     }

@@ -11,4 +11,4 @@ Route::get('/', function () {
 
 Route::resource('maquinas', MaquinaController::class)->parameters(['maquinas' => 'maquina']);
 Route::resource('operadores', OperadorController::class)->parameters(['operadores' => 'operador']);
-Route::resource('usomaquinas', UsoMaquinaController::class)->parameters(['usoMaquina' => 'usoMaquinas']);
+Route::resource('usomaquinas', UsoMaquinaController::class)->parameters(['usomaquina' => 'usomaquinas']);

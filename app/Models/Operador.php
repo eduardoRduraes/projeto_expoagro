@@ -13,8 +13,9 @@ class Operador extends Model
     protected $fillable = [
         'nome',
         'cpf',
+        'status',
         'telefone',
-        'cnh',
+        'categoria_cnh',
     ];
 
     public function usos()

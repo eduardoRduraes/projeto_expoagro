@@ -24,7 +24,8 @@ class OperadorController extends Controller
             'nome' => 'required|string|max:150',
             'cpf' => 'required|string|max:14|unique:operadores',
             'telefone' => 'nullable|string|max:20',
-            'cnh' => 'nullable|string|max:20|unique:operadores',
+            'status' => 'required',
+            'categoria_cnh' => 'required',
         ]);
 
         Operador::create($request->all());
@@ -47,7 +48,7 @@ class OperadorController extends Controller
             'nome' => 'required|string|max:150',
             'cpf' => 'required|string|max:14|unique:operadores, cpf,' . $operador->id,
             'telefone' => 'nullable|string|max:20',
-            'cnh' => 'nullable|string|max:20|unique:operadores, cnh,' . $operador->id ,
+            'categoria_cnh' => 'required' ,
         ]);
 
         $operador->update($request->all());

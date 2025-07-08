@@ -15,6 +15,7 @@ class UsoMaquinaController extends Controller
     public function index()
     {
         $usos = UsoMaquina::with(['maquina','operador'])->get();
+
         return view('usomaquinas.index', compact('usos'));
     }
 
@@ -23,8 +24,8 @@ class UsoMaquinaController extends Controller
      */
     public function create()
     {
-        $maquinas = Maquina::all();
-        $operadores = Operador::all();
+        $maquinas = Maquina::where('status','=','ativo')->get();
+        $operadores = Operador::where('status','=','livre')->get();
 
         return view('usomaquinas.create', compact('maquinas','operadores'));
     }
@@ -51,16 +52,29 @@ class UsoMaquinaController extends Controller
         UsoMaquina::create([
             'maquina_id' => $request->maquina_id,
             'operador_id' => $request->operador_id,
-            'data' =>$request->data,
-            'hora_inicio' =>$request->hora_inicio,
-            'hora_fim' =>$request->hora_fim,
-            'total_horas' =>$total_horas,
-            'observacao' =>$request->observacao,
-            'tarefa' =>$request->tarefa,
+            'data' => $request->data,
+            'hora_inicio' => $request->hora_inicio,
+            'hora_fim' => $request->hora_fim,
+            'total_horas' => $total_horas,
+            'observacao' => $request->observacao,
+            'tarefa' => $request->tarefa,
         ]);
 
-        return redirect()->route('usomaquinas.index')->with('success', 'Uso Maquina Cadastrada com Sucesso!');
+        // Atualizar status da máquina
+        $maquina = Maquina::find($request->maquina_id);
+
+        $operador = Operador::find($request->operador_id);
+
+        if ($maquina && $operador) {
+            $maquina->update(['status' => 'em_servico']);
+            $operador->update(['status' => 'em_servico']);
+        }
+
+
+
+        return redirect()->route('usomaquinas.index')->with('success', 'Uso de Máquina cadastrado com sucesso!');
     }
+
 
     /**
      * Display the specified resource.

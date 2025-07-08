@@ -4,7 +4,7 @@
     <div class="container">
         <h1 class="mb-4">Editar Uso de Máquina</h1>
 
-        <form action="{{ route('usomaquinas.update', $uso_maquina->id) }}" method="POST">
+        <form action="{{ route('usomaquinas.update', $usomaquina->id) }}" method="POST">
             @csrf
             @method('PUT')
             @include('usomaquinas.form')

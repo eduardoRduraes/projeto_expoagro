@@ -9,7 +9,8 @@
                 <p class="card-text"><strong>Nome:</strong> {{ $operador->nome }}</p>
                 <p class="card-text"><strong>CPF:</strong> {{ $operador->cpf }}</p>
                 <p class="card-text"><strong>Telefone:</strong> {{ $operador->telefone }}</p>
-                <p class="card-text"><strong>CNH:</strong> {{ $operador->cnh }}</p>
+                <p class="card-text"><strong>Categoria CNH:</strong> {{ $operador->categoria_cnh }}</p>
+                <p class="card-text"><strong>STATUS:</strong> {{ $operador->status }}</p>
             </div>
         </div>
 
