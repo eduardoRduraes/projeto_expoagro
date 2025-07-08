@@ -11,7 +11,24 @@
                 <p class="card-text"><strong>Número de Série:</strong> {{ $maquina->numero_serie }}</p>
                 <p class="card-text"><strong>Tipo:</strong> {{ $maquina->tipo }}</p>
                 <p class="card-text"><strong>Ano:</strong> {{ $maquina->ano }}</p>
-                <p class="card-text"><strong>Status:</strong> {{ ucfirst($maquina->status) }}</p>
+                <strong>Status:</strong>
+                @switch($maquina->status)
+                    @case('livre')
+                        <span class="badge bg-success">Livre</span>
+                        @break
+
+                    @case('em_servico')
+                        <span class="badge bg-warning text-dark">Em Serviço</span>
+                        @break
+
+                    @case('inativo')
+                        <span class="badge bg-secondary">Inativo</span>
+                        @break
+
+                    @case('manutencao')
+                        <span class="badge bg-info text-dark">Manutenção</span>
+                        @break
+                @endswitch
             </div>
         </div>
 

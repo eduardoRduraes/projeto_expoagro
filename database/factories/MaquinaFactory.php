@@ -22,11 +22,10 @@ class MaquinaFactory extends Factory
         return [
             'nome' => $this->faker->word . ' ' . $this->faker->colorName,
             'modelo' => $this->faker->bothify('Modelo-##??'),
-            'numero_serie' => $this->faker->unique()->bothify('###-???-###'),
+            'numero_serie' => $this->faker->unique()->bothify('#########'),
             'tipo' => $this->faker->randomElement(['emplemento','caminhao','carro','trator']),
             'ano' => $this->faker->year,
-            'horas_totais' => $this->faker->randomFloat(3, 0, 1000),
-            'status' => $this->faker->randomElement(['ativo', 'manutencao','em_servico','inativo']),
+            'status' => $this->faker->randomElement(['livre', 'manutencao','em_servico','inativo']),
         ];
     }
 }

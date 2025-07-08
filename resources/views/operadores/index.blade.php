@@ -17,6 +17,7 @@
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Telefone</th>
+                <th>STATUS</th>
                 <th>Ações</th>
             </tr>
             </thead>
@@ -27,6 +28,17 @@
                     <td>{{ $operador->nome }}</td>
                     <td>{{ $operador->cpf }}</td>
                     <td>{{ $operador->telefone }}</td>
+                    <td style="text-align: center; vertical-align: middle;">
+                        @switch($operador->status)
+                            @case('livre')
+                                <span class="badge bg-success" style="min-width: 100px; display: inline-block; text-align: center;">LIVRE</span>
+                                @break
+
+                            @case('em_servico')
+                                <span class="badge bg-warning text-dark" style="min-width: 100px; display: inline-block; text-align: center;">EM-SERVIÇO</span>
+                                @break
+                        @endswitch
+                    </td>
                     <td>
                         <a href="{{ route('operadores.show', $operador->id) }}" class="btn btn-sm btn-info">Ver</a>
                         <a href="{{ route('operadores.edit', $operador->id) }}" class="btn btn-sm btn-warning">Editar</a>

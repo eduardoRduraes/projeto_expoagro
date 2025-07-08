@@ -22,7 +22,7 @@ class OperadorFactory extends Factory
         return [
             'nome' => $this->faker->name,
             'cpf' => $this->faker->unique()->numerify('###########'),
-            'telefone' => $this->faker->phoneNumber,
+            'telefone' => $this->faker->numerify('38#########'),
             'status' => $this->faker->randomElement(['livre','em_servico']),
             'categoria_cnh' => $this->faker->randomElement(['A','B','AB','C','D','E']),
         ];
