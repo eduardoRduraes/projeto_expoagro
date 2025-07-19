@@ -9,10 +9,9 @@ class Manutencao extends Model
 {
     use HasFactory;
 
+    protected $table = 'manutencoes';
     protected $fillable = [
-        'data',
         'tipo',
-        'horas_maquina',
         'custo',
         'descricao',
         'maquina_id'

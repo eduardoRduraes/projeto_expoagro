@@ -25,7 +25,7 @@ class MaquinaFactory extends Factory
             'numero_serie' => $this->faker->unique()->bothify('#########'),
             'tipo' => $this->faker->randomElement(['emplemento','caminhao','carro','trator']),
             'ano' => $this->faker->year,
-            'status' => $this->faker->randomElement(['livre', 'manutencao','em_servico','inativo']),
+            'status' => $this->faker->randomElement(['livre', 'manutencoes','em_servico','inativo']),
         ];
     }
 }

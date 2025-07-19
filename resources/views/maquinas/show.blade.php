@@ -25,7 +25,7 @@
                         <span class="badge bg-secondary">Inativo</span>
                         @break
 
-                    @case('manutencao')
+                    @case('manutencoes')
                         <span class="badge bg-info text-dark">Manutenção</span>
                         @break
                 @endswitch

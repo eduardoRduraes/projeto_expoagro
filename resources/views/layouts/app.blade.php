@@ -29,6 +29,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('usomaquinas.index') }}">Uso Maquinas</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('manutencoes.index') }}">Manutenção</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Relatório</a>
+                </li>
                 <!-- Adicione outros menus aqui futuramente -->
             </ul>
         </div>

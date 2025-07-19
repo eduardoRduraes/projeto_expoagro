@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('manutencoes', function (Blueprint $table) {
             $table->id();
-            $table->date('data');
-            $table->enum('tipo', ['preventiva', 'corretiva']);
-            $table->decimal('horas_maquina', 8,3);
-            $table->decimal('custo', 10,3)->nullable();
             $table->text('descricao')->nullable();
+            $table->enum('tipo', ['preventiva', 'corretiva']);
+            $table->decimal('custo', 10,3)->nullable();
             $table->timestamps();
         });
     }

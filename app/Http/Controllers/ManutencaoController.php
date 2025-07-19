@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Manutencao;
+use App\Models\Maquina;
 use Illuminate\Http\Request;
 
 class ManutencaoController extends Controller
@@ -12,7 +13,8 @@ class ManutencaoController extends Controller
      */
     public function index()
     {
-        //
+        $manutencoes = Manutencao::with(['maquina'])->get();
+        return view('manutencoes.index',  compact('manutencoes'));
     }
 
     /**
@@ -20,7 +22,8 @@ class ManutencaoController extends Controller
      */
     public function create()
     {
-        //
+        $maquinas = Maquina::where('status','=','livre')->get();
+        return view('manutencoes.create',compact('maquinas'));
     }
 
     /**
@@ -28,7 +31,27 @@ class ManutencaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'maquina_id' => 'required|exists:maquinas,id',
+            'tipo' => 'required',
+            'custo' => 'numeric|required',
+            'descricao' => 'required|string|max:200',
+        ]);
+
+        Manutencao::created([
+            'maquina_id' => $request->maquina_id,
+            'tipo' => $request->tipo,
+            'custo' => $request->custo,
+            'descricao' => $request->descricao,
+        ]);
+
+        $maquina = Maquina::find($request->maquina_id);
+
+        if ($maquina ) {
+            $maquina->update(['status' => 'manutencao']);
+        }
+
+        redirect()->route('manutencoes.index')->with('sucess');
     }
 
     /**
@@ -36,7 +59,7 @@ class ManutencaoController extends Controller
      */
     public function show(Manutencao $manutencoes)
     {
-        //
+        return view('manutencoes.show', compact('manutencoes'));
     }
 
     /**
@@ -44,7 +67,9 @@ class ManutencaoController extends Controller
      */
     public function edit(Manutencao $manutencoes)
     {
-        //
+        $maquinas = Maquina::all();
+
+        return view('manutencoes.edit', compact('manutencoes', 'maquinas'));
     }
 
     /**

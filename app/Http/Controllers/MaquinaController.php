@@ -38,6 +38,7 @@ class MaquinaController extends Controller
             'status' => 'required',
         ]);
 
+
         Maquina::create($request->all());
         return redirect()->route('maquinas.index')->with('success', 'Maquina cadastrada com sucesso!');
     }
