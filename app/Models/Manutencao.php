@@ -12,9 +12,10 @@ class Manutencao extends Model
 
     protected $table = 'manutencoes';
     protected $fillable = [
-        'tipo',
-        'custo',
         'descricao',
+        'tipo',
+        'status',
+        'custo',
         'maquina_id'
     ];
 
@@ -22,6 +23,8 @@ class Manutencao extends Model
         'custo' => 'decimal:3',
     ];
 
+    public const STATUS_LIVRE = 'livre';
+    public const STATUS_MANUTENCAO = 'manutencao';
     public const TIPO_PREVENTIVA = 'preventiva';
     public const TIPO_CORRETIVA = 'corretiva';
 

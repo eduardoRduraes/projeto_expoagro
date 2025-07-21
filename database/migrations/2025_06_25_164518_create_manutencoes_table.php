@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('maquina_id')->constrained('maquinas')->cascadeOnDelete();
             $table->text('descricao')->nullable();
             $table->enum('tipo', ['preventiva', 'corretiva']);
+            $table->enum('status', ['livre', 'manutencao', 'inativaclear']);
             $table->decimal('custo', 10,3)->nullable();
             $table->timestamps();
         });

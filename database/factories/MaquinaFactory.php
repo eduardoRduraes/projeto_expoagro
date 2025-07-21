@@ -29,9 +29,9 @@ class MaquinaFactory extends Factory
 
     public function definition(): array
     {
-        $tipo = $this->faker->randomElement(['implemento', 'caminhao', 'carro', 'trator']);
+        $tipo = $this->faker->randomElement(['emplemento', 'caminhao', 'carro', 'trator']);
         $nomeBase = [
-            'implemento' => 'Implemento',
+            'emplemento' => 'Implemento',
             'caminhao' => 'Caminhão',
             'carro' => 'Carro',
             'trator' => 'Trator',

@@ -37,6 +37,10 @@ class ManutencaoFactory extends Factory
                 Manutencao::TIPO_PREVENTIVA,
                 Manutencao::TIPO_CORRETIVA,
             ]),
+            'status' => $this->faker->randomElement([
+                Manutencao::STATUS_MANUTENCAO,
+                Manutencao::STATUS_LIVRE,
+            ]),
             'custo' => $this->faker->randomFloat(3, 100, 5000),
         ];
     }
