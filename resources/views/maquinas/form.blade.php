@@ -16,7 +16,7 @@
 <div class="mb-3">
     <label for="tipo" class="form-label">Tipo</label>
     <select class="form-select" id="tipo" name="tipo" required>
-        <option value="emplemento" {{ old('tipo', $maquina->tipo ?? '') == 'emplemento' ? 'selected' : '' }}>Emplemento</option>
+        <option value="implemento" {{ old('tipo', $maquina->tipo ?? '') == 'implemento' ? 'selected' : '' }}>Implemento</option>
         <option value="caminhao" {{ old('tipo', $maquina->tipo ?? '') == 'caminhao' ? 'selected' : '' }}>Caminhão</option>
         <option value="carro" {{ old('tipo', $maquina->tipo ?? '') == 'carro' ? 'selected' : '' }}>Carro</option>
         <option value="trator" {{ old('tipo', $maquina->tipo ?? '') == 'trator' ? 'selected' : '' }}>Trator</option>
