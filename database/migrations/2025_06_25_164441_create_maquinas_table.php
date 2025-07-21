@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('tipo',['emplemento','caminhao','carro','trator']);
             $table->year('ano');
             $table->decimal('horas_totais', 8, 3)->default(0);
-            $table->enum('status', ['livre', 'manutencoes','em_servico','inativo'])->default('ativo');
+            $table->enum('status', ['livre', 'em_servico', 'manutencao', 'inativo'])->default('livre');
             $table->timestamps();
         });
     }
