@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('manutencoes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('maquina_id')->constrained('maquinas')->cascadeOnDelete();
             $table->text('descricao')->nullable();
             $table->enum('tipo', ['preventiva', 'corretiva']);
             $table->decimal('custo', 10,3)->nullable();

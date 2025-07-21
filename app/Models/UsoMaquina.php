@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UsoMaquina extends Model
 {
@@ -21,13 +22,20 @@ class UsoMaquina extends Model
         'operador_id'
     ];
 
+    protected $casts = [
+        'data' => 'date',
+        'hora_inicio' => 'datetime:H:i',
+        'hora_fim' => 'datetime:H:i',
+        'total_horas' => 'decimal:3',
+    ];
 
-    public function maquina()
+
+    public function maquina(): BelongsTo
     {
         return $this->belongsTo(Maquina::class);
     }
 
-    public function operador()
+    public function operador(): BelongsTo
     {
         return $this->belongsTo(Operador::class);
     }

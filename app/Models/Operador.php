@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Operador extends Model
 {
@@ -18,7 +19,10 @@ class Operador extends Model
         'categoria_cnh',
     ];
 
-    public function usos()
+    public const STATUS_LIVRE = 'livre';
+    public const STATUS_EM_SERVICO = 'em_servico';
+
+    public function usos(): HasMany
     {
         return $this->hasMany(UsoMaquina::class);
     }

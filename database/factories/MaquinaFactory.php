@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Maquina;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Faker\Generator as Faker;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Maquina>
@@ -17,15 +18,38 @@ class MaquinaFactory extends Factory
      */
 
     protected $model = Maquina::class;
+
+    /**
+     * Configure Faker to use Portuguese locale.
+     */
+    public function withFaker(): Faker
+    {
+        return \Faker\Factory::create('pt_BR');
+    }
+
     public function definition(): array
     {
+        $tipo = $this->faker->randomElement(['implemento', 'caminhao', 'carro', 'trator']);
+        $nomeBase = [
+            'implemento' => 'Implemento',
+            'caminhao' => 'Caminhão',
+            'carro' => 'Carro',
+            'trator' => 'Trator',
+        ];
+
         return [
-            'nome' => $this->faker->word . ' ' . $this->faker->colorName,
+            'nome' => $nomeBase[$tipo] . ' ' . $this->faker->word(),
             'modelo' => $this->faker->bothify('Modelo-##??'),
             'numero_serie' => $this->faker->unique()->bothify('#########'),
-            'tipo' => $this->faker->randomElement(['emplemento','caminhao','carro','trator']),
+            'tipo' => $tipo,
             'ano' => $this->faker->year,
-            'status' => $this->faker->randomElement(['livre', 'manutencoes','em_servico','inativo']),
+            'horas_totais' => $this->faker->randomFloat(3, 0, 1000),
+            'status' => $this->faker->randomElement([
+                Maquina::STATUS_LIVRE,
+                Maquina::STATUS_MANUTENCAO,
+                Maquina::STATUS_EM_SERVICO,
+                Maquina::STATUS_INATIVO,
+            ]),
         ];
     }
 }
