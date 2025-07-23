@@ -5,15 +5,32 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
+                    <x-primary-button>
+                        <x-nav-link :href="route('maquinas.index')" :active="request()->routeIs('maquinas')">
+                            {{ __('Maquinas') }}
+                        </x-nav-link>
+                    </x-primary-button>
+                </div>
+                <div class="shrink-0 flex items-center">
+                    <x-nav-link :href="route('operadores.index')" :active="request()->routeIs('operadores')">
+                        {{ __('Operadores') }}
+                    </x-nav-link>
+                </div>
+                <div class="shrink-0 flex items-center">
+                    <x-nav-link :href="route('usomaquinas.index')" :active="request()->routeIs('usomaquinas')">
+                        {{ __('Uso Maquinas') }}
+                    </x-nav-link>
+                </div>
+                <div class="shrink-0 flex items-center">
+                    <x-nav-link :href="route('manutencoes.index')" :active="request()->routeIs('manutencoes')">
+                        {{ __('Manutenção') }}
+                    </x-nav-link>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Usuários') }}
                     </x-nav-link>
                 </div>
             </div>

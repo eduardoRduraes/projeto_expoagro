@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nome');
             $table->string('modelo')->nullable();
             $table->string('numero_serie')->unique();
-            $table->enum('tipo', ['implemento', 'caminhao', 'carro', 'trator']);
+            $table->enum('tipo', ['emplemento', 'caminhao', 'carro', 'trator']);
             $table->year('ano');
             $table->decimal('horas_totais', 8, 3)->default(0);
             $table->enum('status', ['livre', 'em_servico', 'manutencao', 'inativo'])->default('livre');

@@ -31,7 +31,7 @@ class MaquinaFactory extends Factory
     {
         $tipo = $this->faker->randomElement(['emplemento', 'caminhao', 'carro', 'trator']);
         $nomeBase = [
-            'emplemento' => 'Implemento',
+            'emplemento' => 'Emplemento',
             'caminhao' => 'Caminhão',
             'carro' => 'Carro',
             'trator' => 'Trator',

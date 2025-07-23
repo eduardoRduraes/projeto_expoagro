@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
     {
         $maquinas = Maquina::factory(10)->create();
         $operadores = Operador::factory(4)->create();
+        $usoMaquinas = UsoMaquina::factory(10)->create();
+        $manutencoes = Manutencao::factory(10)->create();
 
         // vincula manutencoes a maquinas existentes e atualiza status
         foreach ($maquinas->random(3) as $maquina) {

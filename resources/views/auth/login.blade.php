@@ -23,7 +23,6 @@
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
-
         <!-- Remember Me -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
@@ -38,7 +37,13 @@
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
-
+            <x-secondary-button class="ms-3">
+                    <a
+                        href="{{ route('register') }}"
+                        >
+                        Register
+                    </a>
+            </x-secondary-button>
             <x-primary-button class="ms-3">
                 {{ __('Log in') }}
             </x-primary-button>
