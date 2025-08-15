@@ -8,8 +8,14 @@
             @csrf
             @include('usomaquinas.form')
 
-            <button type="submit" class="btn btn-success">Salvar</button>
-            <a href="{{ route('usomaquinas.index') }}" class="btn btn-secondary">Voltar</a>
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn-modern btn-success">
+                    <i class="fas fa-save me-2"></i>Salvar
+                </button>
+                <a href="{{ route('usomaquinas.index') }}" class="btn-modern btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Voltar
+                </a>
+            </div>
         </form>
     </div>
 @endsection

@@ -6,6 +6,7 @@ use App\Models\Maquina;
 use App\Models\Operador;
 use App\Models\UsoMaquina;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class UsoMaquinaController extends Controller
 {
@@ -14,7 +15,7 @@ class UsoMaquinaController extends Controller
      */
     public function index()
     {
-        $usos = UsoMaquina::with(['maquina','operador'])->get();
+        $usos = UsoMaquina::with(['maquina','operador'])->paginate(10);
 
         return view('usomaquinas.index', compact('usos'));
     }
@@ -24,7 +25,7 @@ class UsoMaquinaController extends Controller
      */
     public function create()
     {
-        $maquinas = Maquina::where('status','=','ativo')->get();
+        $maquinas = Maquina::where('status','=','livre')->get();
         $operadores = Operador::where('status','=','livre')->get();
 
         return view('usomaquinas.create', compact('maquinas','operadores'));
@@ -45,9 +46,9 @@ class UsoMaquinaController extends Controller
             'tarefa' => 'nullable|string|max:255',
         ]);
 
-        $inicio = strtotime($request->hora_inicio);
-        $fim = strtotime($request->hora_fim);
-        $total_horas = round(($fim - $inicio) / 3600, 2);
+        $inicio = Carbon::createFromFormat('Y-m-d H:i', $request->data . ' ' . $request->hora_inicio);
+        $fim = Carbon::createFromFormat('Y-m-d H:i', $request->data . ' ' . $request->hora_fim);
+        $total_horas = $inicio->diffInMinutes($fim) / 60;
 
         UsoMaquina::create([
             'maquina_id' => $request->maquina_id,
@@ -98,7 +99,7 @@ class UsoMaquinaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UsoMaquina $usosMaquinas)
+    public function update(Request $request, UsoMaquina $usomaquina)
     {
         $request->validate([
             'maquina_id' => 'required|exists:maquinas,id',
@@ -115,7 +116,7 @@ class UsoMaquinaController extends Controller
         $fim = strtotime($request->hora_fim);
         $total_horas = round(($fim - $inicio) / 3600, 2);
 
-        $usosMaquinas->update([
+        $usomaquina->update([
             'maquina_id' => $request->maquina_id,
             'operador_id' => $request->operador_id,
             'data' => $request->data,

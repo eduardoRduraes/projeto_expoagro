@@ -16,11 +16,14 @@ class Manutencao extends Model
         'tipo',
         'status',
         'custo',
+        'data_manutencao',
+        'responsavel',
         'maquina_id'
     ];
 
     protected $casts = [
         'custo' => 'decimal:3',
+        'data_manutencao' => 'date',
     ];
 
     public const STATUS_LIVRE = 'livre';

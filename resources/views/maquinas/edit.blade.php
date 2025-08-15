@@ -9,8 +9,14 @@
             @method('PUT')
             @include('maquinas.form')
 
-            <button type="submit" class="btn btn-primary">Atualizar</button>
-            <a href="{{ route('maquinas.index') }}" class="btn btn-secondary">Voltar</a>
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn-modern btn-primary">
+                    <i class="fas fa-sync-alt me-2"></i>Atualizar
+                </button>
+                <a href="{{ route('maquinas.index') }}" class="btn-modern btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Voltar
+                </a>
+            </div>
         </form>
     </div>
 @endsection

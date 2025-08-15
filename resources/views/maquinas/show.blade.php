@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <a href="{{ route('maquinas.index') }}" class="btn btn-secondary mt-3">Voltar</a>
+        <a href="{{ route('maquinas.index') }}" class="btn-modern btn-secondary mt-3">Voltar</a>
     </div>
 @endsection
 

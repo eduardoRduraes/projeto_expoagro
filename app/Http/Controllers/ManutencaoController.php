@@ -13,7 +13,7 @@ class ManutencaoController extends Controller
      */
     public function index()
     {
-        $manutencoes = Manutencao::with(['maquina'])->get();
+        $manutencoes = Manutencao::with(['maquina'])->paginate(10);
         return view('manutencoes.index',  compact('manutencoes'));
     }
 
@@ -23,7 +23,8 @@ class ManutencaoController extends Controller
     public function create()
     {
         $maquinas = Maquina::where('status','=','livre')->get();
-        return view('manutencoes.create',compact('maquinas'));
+        $manutencao = null;
+        return view('manutencoes.create',compact('maquinas', 'manutencao'));
     }
 
     /**
@@ -33,16 +34,21 @@ class ManutencaoController extends Controller
     {
         $request->validate([
             'maquina_id' => 'required|exists:maquinas,id',
-            'tipo' => 'required',
-            'custo' => 'numeric|required',
-            'descricao' => 'required|string|max:200',
+            'tipo' => 'required|in:preventiva,corretiva',
+            'custo' => 'numeric|required|min:0',
+            'descricao' => 'required|string|max:500',
+            'data_manutencao' => 'nullable|date',
+            'responsavel' => 'required|string|max:255',
         ]);
 
-        Manutencao::created([
+        Manutencao::create([
             'maquina_id' => $request->maquina_id,
             'tipo' => $request->tipo,
             'custo' => $request->custo,
             'descricao' => $request->descricao,
+            'data_manutencao' => $request->data_manutencao,
+            'responsavel' => $request->responsavel,
+            'status' => 'manutencao',
         ]);
 
         $maquina = Maquina::find($request->maquina_id);
@@ -51,40 +57,52 @@ class ManutencaoController extends Controller
             $maquina->update(['status' => 'manutencao']);
         }
 
-        redirect()->route('manutencoes.index')->with('sucess');
+        return redirect()->route('manutencoes.index')->with('success', 'Manutenção cadastrada com sucesso!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Manutencao $manutencoes)
+    public function show(Manutencao $manutencao)
     {
-        return view('manutencoes.show', compact('manutencoes'));
+        return view('manutencoes.show', compact('manutencao'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Manutencao $manutencoes)
+    public function edit(Manutencao $manutencao)
     {
         $maquinas = Maquina::all();
 
-        return view('manutencoes.edit', compact('manutencoes', 'maquinas'));
+        return view('manutencoes.edit', compact('manutencao', 'maquinas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Manutencao $manutencoes)
+    public function update(Request $request, Manutencao $manutencao)
     {
-        //
+        $request->validate([
+            'descricao' => 'required|string|max:255',
+            'tipo' => 'required|in:preventiva,corretiva',
+            'status' => 'required|in:livre,manutencao',
+            'custo' => 'required|numeric|min:0',
+            'data_manutencao' => 'required|date',
+            'responsavel' => 'required|string|max:255',
+            'maquina_id' => 'required|exists:maquinas,id',
+        ]);
+
+        $manutencao->update($request->all());
+        return redirect()->route('manutencoes.index')->with('success', 'Manutenção atualizada com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Manutencao $manutencoes)
+    public function destroy(Manutencao $manutencao)
     {
-        //
+        $manutencao->delete();
+        return redirect()->route('manutencoes.index')->with('success', 'Manutenção deletada com sucesso!');
     }
 }

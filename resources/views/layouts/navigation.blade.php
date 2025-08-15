@@ -1,117 +1,125 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <x-primary-button>
-                        <x-nav-link :href="route('maquinas.index')" :active="request()->routeIs('maquinas')">
-                            {{ __('Maquinas') }}
-                        </x-nav-link>
-                    </x-primary-button>
-                </div>
-                <div class="shrink-0 flex items-center">
-                    <x-nav-link :href="route('operadores.index')" :active="request()->routeIs('operadores')">
-                        {{ __('Operadores') }}
-                    </x-nav-link>
-                </div>
-                <div class="shrink-0 flex items-center">
-                    <x-nav-link :href="route('usomaquinas.index')" :active="request()->routeIs('usomaquinas')">
-                        {{ __('Uso Maquinas') }}
-                    </x-nav-link>
-                </div>
-                <div class="shrink-0 flex items-center">
-                    <x-nav-link :href="route('manutencoes.index')" :active="request()->routeIs('manutencoes')">
-                        {{ __('Manutenção') }}
-                    </x-nav-link>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Usuários') }}
-                    </x-nav-link>
-                </div>
-            </div>
-
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
-
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
-
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
+<!-- Modern Sidebar Navigation -->
+<div class="sidebar d-flex flex-column" style="width: 280px;">
+    <!-- Logo/Brand -->
+    <div class="p-4 text-center border-bottom border-light border-opacity-25">
+        <h4 class="text-white mb-0">
+            <i class="fas fa-tractor me-2"></i>
+            Gestor Agrícola
+        </h4>
+        <small class="text-white-50">Sistema de Implementos</small>
     </div>
-
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+    
+    <!-- Mobile Toggle Button -->
+    <button class="btn btn-link text-white d-md-none position-absolute" 
+            style="top: 15px; right: 15px; z-index: 1001;" 
+            onclick="toggleSidebar()">
+        <i class="fas fa-times"></i>
+    </button>
+    
+    <!-- Navigation Menu -->
+    <nav class="flex-grow-1 py-3">
+        <ul class="nav flex-column">
+            <!-- Dashboard -->
+            <li class="nav-item">
+                <a href="{{ route('dashboard') }}" 
+                   class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            
+            <!-- Máquinas -->
+            <li class="nav-item">
+                <a href="{{ route('maquinas.index') }}" 
+                   class="nav-link {{ request()->routeIs('maquinas.*') ? 'active' : '' }}">
+                    <i class="fas fa-cogs"></i>
+                    <span>Máquinas</span>
+                </a>
+            </li>
+            
+            <!-- Operadores -->
+            <li class="nav-item">
+                <a href="{{ route('operadores.index') }}" 
+                   class="nav-link {{ request()->routeIs('operadores.*') ? 'active' : '' }}">
+                    <i class="fas fa-users"></i>
+                    <span>Operadores</span>
+                </a>
+            </li>
+            
+            <!-- Uso de Máquinas -->
+            <li class="nav-item">
+                <a href="{{ route('usomaquinas.index') }}" 
+                   class="nav-link {{ request()->routeIs('usomaquinas.*') ? 'active' : '' }}">
+                    <i class="fas fa-clock"></i>
+                    <span>Uso de Máquinas</span>
+                </a>
+            </li>
+            
+            <!-- Manutenções -->
+            <li class="nav-item">
+                <a href="{{ route('manutencoes.index') }}" 
+                   class="nav-link {{ request()->routeIs('manutencoes.*') ? 'active' : '' }}">
+                    <i class="fas fa-wrench"></i>
+                    <span>Manutenções</span>
+                </a>
+            </li>
+            
+            <!-- Relatórios -->
+            <li class="nav-item">
+                <a href="{{ route('relatorios.index') }}" 
+                   class="nav-link {{ request()->routeIs('relatorios.*') ? 'active' : '' }}">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Relatórios</span>
+                </a>
+            </li>
+            
+            <!-- Divider -->
+            <li class="nav-item">
+                <hr class="border-light border-opacity-25 mx-3 my-3">
+            </li>
+            
+            <!-- Configurações -->
+            <li class="nav-item">
+                <a href="{{ route('profile.edit') }}" 
+                   class="nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Perfil</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+    <!-- User Info & Logout -->
+    <div class="p-3 border-top border-light border-opacity-25">
+        <div class="d-flex align-items-center mb-3">
+            <div class="bg-white bg-opacity-20 rounded-circle p-2 me-3">
+                <i class="fas fa-user text-white"></i>
             </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
+            <div class="flex-grow-1">
+                <div class="text-white fw-medium">{{ Auth::user()->name }}</div>
+                <small class="text-white-50">{{ Auth::user()->email }}</small>
             </div>
         </div>
+        
+        <form method="POST" action="{{ route('logout') }}" class="d-grid">
+            @csrf
+            <button type="submit" class="btn-modern btn-outline-light btn-sm">
+                <i class="fas fa-sign-out-alt me-2"></i>
+                Sair
+            </button>
+        </form>
     </div>
-</nav>
+</div>
+
+<!-- Mobile Overlay -->
+<div class="d-md-none position-fixed w-100 h-100 bg-dark bg-opacity-50" 
+     style="top: 0; left: 0; z-index: 999; display: none;" 
+     id="sidebar-overlay" 
+     onclick="toggleSidebar()"></div>
+
+<!-- Mobile Menu Button -->
+<button class="btn-modern btn-primary d-md-none position-fixed" 
+        style="top: 20px; left: 20px; z-index: 1002;" 
+        onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+</button>

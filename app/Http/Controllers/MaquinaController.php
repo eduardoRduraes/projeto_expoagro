@@ -12,7 +12,7 @@ class MaquinaController extends Controller
      */
     public function index()
     {
-        $maquinas = Maquina::all();
+        $maquinas = Maquina::paginate(10);
         return view('maquinas.index', compact('maquinas'));
     }
 
@@ -30,17 +30,17 @@ class MaquinaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nome' => 'required',
-            'modelo' => 'nullable',
-            'numero_serie' => 'required|unique:maquinas',
-            'tipo' => 'required',
-            'ano' => 'required|digits:4|integer',
-            'status' => 'required',
+            'nome' => 'required|string|max:255',
+            'modelo' => 'nullable|string|max:255',
+            'numero_serie' => 'required|string|max:255|unique:maquinas',
+            'tipo' => 'required|in:emplemento,caminhao,carro,trator',
+            'ano' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
+            'status' => 'required|in:livre,em_servico,manutencao,inativo',
+            'horas_totais' => 'nullable|numeric|min:0',
         ]);
 
-
         Maquina::create($request->all());
-        return redirect()->route('maquinas.index')->with('success', 'Maquina cadastrada com sucesso!');
+        return redirect()->route('maquinas.index')->with('success', 'Máquina cadastrada com sucesso!');
     }
 
     /**
@@ -65,12 +65,17 @@ class MaquinaController extends Controller
     public function update(Request $request, Maquina $maquina)
     {
         $request->validate([
-            'nome' => 'required',
-            'numero_serie' => 'required|unique:maquinas, numero_serie,' . $maquina->id . ',id',
+            'nome' => 'required|string|max:255',
+            'modelo' => 'nullable|string|max:255',
+            'numero_serie' => 'required|string|max:255|unique:maquinas,numero_serie,' . $maquina->id,
+            'tipo' => 'required|in:emplemento,caminhao,carro,trator',
+            'ano' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
+            'status' => 'required|in:livre,em_servico,manutencao,inativo',
+            'horas_totais' => 'nullable|numeric|min:0',
         ]);
 
         $maquina->update($request->all());
-        return redirect()->route('maquinas.index')->with('success', 'Maquina atualizada com sucesso!');
+        return redirect()->route('maquinas.index')->with('success', 'Máquina atualizada com sucesso!');
     }
 
     /**
@@ -79,6 +84,6 @@ class MaquinaController extends Controller
     public function destroy(Maquina $maquina)
     {
         $maquina->delete();
-        return redirect()->route('maquinas.index')->with('success', 'Maquina deletada com sucesso!');
+        return redirect()->route('maquinas.index')->with('success', 'Máquina deletada com sucesso!');
     }
 }

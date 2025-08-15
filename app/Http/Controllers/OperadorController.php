@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Operador;
+use App\Rules\CpfValidation;
 use Illuminate\Http\Request;
 
 class OperadorController extends Controller
 {
     public function index()
     {
-        $operadores = Operador::all();
+        $operadores = Operador::paginate(10);
         return view('operadores.index', compact('operadores'));
     }
 
@@ -22,10 +23,10 @@ class OperadorController extends Controller
     {
         $request->validate([
             'nome' => 'required|string|max:150',
-            'cpf' => 'required|string|max:14|unique:operadores',
+            'cpf' => ['required', 'string', 'max:14', 'unique:operadores', new CpfValidation()],
             'telefone' => 'nullable|string|max:20',
-            'status' => 'required',
-            'categoria_cnh' => 'required',
+            'status' => 'required|in:livre,em_servico',
+            'categoria_cnh' => 'required|string|max:5',
         ]);
 
         Operador::create($request->all());
@@ -46,9 +47,10 @@ class OperadorController extends Controller
     {
         $request->validate([
             'nome' => 'required|string|max:150',
-            'cpf' => 'required|string|max:14|unique:operadores, cpf,' . $operador->id,
+            'cpf' => ['required', 'string', 'max:14', 'unique:operadores,cpf,' . $operador->id, new CpfValidation()],
             'telefone' => 'nullable|string|max:20',
-            'categoria_cnh' => 'required' ,
+            'status' => 'required|in:livre,em_servico',
+            'categoria_cnh' => 'required|string|max:5',
         ]);
 
         $operador->update($request->all());

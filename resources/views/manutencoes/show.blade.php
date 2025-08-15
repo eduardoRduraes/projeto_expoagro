@@ -6,11 +6,12 @@
 
         <div class="card">
             <div class="card-body">
-                <p class="card-text"><strong>Descricao:</strong> {{ $manutencao->maquina->nome }}</p>
-                <p class="card-text"><strong>Modelo:</strong> {{ $manutencao->descricao }}</p>
-                <p class="card-text"><strong>Número de Série:</strong> {{ $manutencao->tipo }}</p>
-                <p class="card-text"><strong>Tipo:</strong> {{ $manutencao->custo }}</p>
-                <p class="card-text"><strong>Ano:</strong> {{ $manutencao->ano }}</p>
+                <p class="card-text"><strong>Máquina:</strong> {{ $manutencao->maquina->nome }}</p>
+                <p class="card-text"><strong>Descrição:</strong> {{ $manutencao->descricao }}</p>
+                <p class="card-text"><strong>Tipo:</strong> {{ ucfirst($manutencao->tipo) }}</p>
+                <p class="card-text"><strong>Custo:</strong> R$ {{ number_format($manutencao->custo, 2, ',', '.') }}</p>
+                <p class="card-text"><strong>Data da Manutenção:</strong> {{ $manutencao->data_manutencao ? $manutencao->data_manutencao->format('d/m/Y') : 'Não informada' }}</p>
+                <p class="card-text"><strong>Responsável:</strong> {{ $manutencao->responsavel ?? 'Não informado' }}</p>
                 <strong>Status:</strong>
                 @switch($manutencao->status)
                     @case('livre')
@@ -32,7 +33,7 @@
             </div>
         </div>
 
-        <a href="{{ route('maquinas.index') }}" class="btn btn-secondary mt-3">Voltar</a>
+        <a href="{{ route('manutencoes.index') }}" class="btn-modern btn-secondary mt-3">Voltar</a>
     </div>
 @endsection
 
