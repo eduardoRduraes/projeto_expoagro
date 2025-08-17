@@ -10,9 +10,30 @@ class MaquinaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $maquinas = Maquina::paginate(10);
+        $query = Maquina::query();
+
+        // Filtro por busca (nome ou modelo)
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nome', 'like', '%' . $search . '%')
+                  ->orWhere('modelo', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Filtro por tipo
+        if ($request->filled('tipo')) {
+            $query->where('tipo', $request->tipo);
+        }
+
+        // Filtro por status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $maquinas = $query->paginate(10);
         return view('maquinas.index', compact('maquinas'));
     }
 

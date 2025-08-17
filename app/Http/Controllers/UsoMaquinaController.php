@@ -13,11 +13,36 @@ class UsoMaquinaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $usos = UsoMaquina::with(['maquina','operador'])->paginate(10);
+        $query = UsoMaquina::with(['maquina', 'operador']);
 
-        return view('usomaquinas.index', compact('usos'));
+        // Filtro por máquina
+        if ($request->filled('maquina_id')) {
+            $query->where('maquina_id', $request->maquina_id);
+        }
+
+        // Filtro por operador
+        if ($request->filled('operador_id')) {
+            $query->where('operador_id', $request->operador_id);
+        }
+
+        // Filtro por período de datas
+        if ($request->filled('data_inicio')) {
+            $query->where('data', '>=', $request->data_inicio);
+        }
+
+        if ($request->filled('data_fim')) {
+            $query->where('data', '<=', $request->data_fim);
+        }
+
+        $usos = $query->paginate(10);
+        
+        // Buscar máquinas e operadores para os filtros
+        $maquinas = Maquina::orderBy('nome')->get();
+        $operadores = Operador::orderBy('nome')->get();
+
+        return view('usomaquinas.index', compact('usos', 'maquinas', 'operadores'));
     }
 
     /**

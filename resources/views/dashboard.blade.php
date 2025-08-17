@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="stat-icon bg-primary">
-                            <i class="fas fa-tractor"></i>
+                            <i class="fas fa-seedling"></i>
                         </div>
                         <div class="ms-3">
                             <p class="stat-label">Total de Máquinas</p>
@@ -41,7 +41,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="stat-icon bg-success">
-                            <i class="fas fa-check-circle"></i>
+                            <i class="fas fa-tractor"></i>
                         </div>
                         <div class="ms-3">
                             <p class="stat-label">Máquinas em Serviço</p>
@@ -58,7 +58,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="stat-icon bg-info">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-user-tie"></i>
                         </div>
                         <div class="ms-3">
                             <p class="stat-label">Total de Operadores</p>
@@ -75,7 +75,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="stat-icon bg-warning">
-                            <i class="fas fa-exclamation-triangle"></i>
+                            <i class="fas fa-tools"></i>
                         </div>
                         <div class="ms-3">
                             <p class="stat-label">Manutenções Pendentes</p>
@@ -94,7 +94,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">
-                        <i class="fas fa-clock me-2"></i>Uso de Máquinas Recente
+                        <i class="fas fa-history me-2"></i>Uso de Máquinas Recente
                     </h5>
                 </div>
                 <div class="card-body">
@@ -123,7 +123,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">
-                        <i class="fas fa-chart-pie me-2"></i>Status das Máquinas
+                        <i class="fas fa-chart-bar me-2"></i>Status das Máquinas
                     </h5>
                 </div>
                 <div class="card-body">
@@ -162,29 +162,29 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">
-                        <i class="fas fa-bolt me-2"></i>Ações Rápidas
+                        <i class="fas fa-rocket me-2"></i>Ações Rápidas
                     </h5>
                 </div>
                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-3">
                             <a href="{{ route('usomaquinas.create') }}" class="btn-modern btn-primary w-100">
-                                <i class="fas fa-play me-2"></i>Registrar Uso
+                                <i class="fas fa-clipboard-list me-2"></i>Registrar Uso
                             </a>
                         </div>
                         <div class="col-md-3">
                             <a href="{{ route('manutencoes.create') }}" class="btn-modern btn-warning w-100">
-                                <i class="fas fa-wrench me-2"></i>Nova Manutenção
+                                <i class="fas fa-tools me-2"></i>Nova Manutenção
                             </a>
                         </div>
                         <div class="col-md-3">
                             <a href="{{ route('relatorios.index') }}" class="btn-modern btn-info w-100">
-                                <i class="fas fa-chart-bar me-2"></i>Relatórios
+                                <i class="fas fa-file-chart-line me-2"></i>Relatórios
                             </a>
                         </div>
                         <div class="col-md-3">
                             <a href="{{ route('maquinas.index') }}" class="btn-modern btn-secondary w-100">
-                                <i class="fas fa-list me-2"></i>Ver Máquinas
+                                <i class="fas fa-tractor me-2"></i>Ver Máquinas
                             </a>
                         </div>
                     </div>

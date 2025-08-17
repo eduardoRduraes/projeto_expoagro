@@ -8,9 +8,30 @@ use Illuminate\Http\Request;
 
 class OperadorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $operadores = Operador::paginate(10);
+        $query = Operador::query();
+
+        // Filtro por busca (nome ou CPF)
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nome', 'like', '%' . $search . '%')
+                  ->orWhere('cpf', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Filtro por status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Filtro por categoria CNH
+        if ($request->filled('categoria_cnh')) {
+            $query->where('categoria_cnh', $request->categoria_cnh);
+        }
+
+        $operadores = $query->paginate(10);
         return view('operadores.index', compact('operadores'));
     }
 

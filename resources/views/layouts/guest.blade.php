@@ -15,9 +15,24 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col justify-center items-center bg-gray-100">
-            <div class="w-full sm:max-w-md px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <div class="min-h-screen flex flex-col justify-center items-center agro-login-bg">
+            <!-- Logo e Título -->
+            <div class="text-center mb-8">
+                <div class="agro-logo mb-4">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h1 class="agro-title">Gestor de Implementos</h1>
+                <p class="agro-subtitle">Sistema de Gestão Agrícola</p>
+            </div>
+            
+            <!-- Card de Login -->
+            <div class="w-full sm:max-w-md px-8 py-8 agro-login-card">
                 {{ $slot }}
+            </div>
+            
+            <!-- Rodapé -->
+            <div class="text-center mt-8 agro-footer">
+                <p><i class="fas fa-leaf me-2"></i>Cultivando o futuro da agricultura</p>
             </div>
         </div>
     </body>

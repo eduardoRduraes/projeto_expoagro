@@ -45,20 +45,27 @@
             
             .sidebar .nav-link {
                 color: rgba(255,255,255,0.8);
-                padding: 12px 20px;
+                padding: 12px 32px;
                 margin: 4px 12px;
                 border-radius: 8px;
                 transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                gap: 12px;
+                display: block;
+                width: calc(100% - 24px);
+                box-sizing: border-box;
+                text-decoration: none;
+            }
+            
+            .sidebar .nav-link i {
+                display: inline-block;
+                width: 20px;
+                margin-right: 12px;
+                text-align: center;
             }
             
             .sidebar .nav-link:hover,
             .sidebar .nav-link.active {
                 background: rgba(255,255,255,0.1);
                 color: white;
-                transform: translateX(4px);
             }
             
             .main-content {
@@ -88,7 +95,6 @@
             .btn-primary:hover {
                 background: var(--primary-dark);
                 border-color: var(--primary-dark);
-                transform: translateY(-1px);
                 box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
             }
             
@@ -100,7 +106,6 @@
             }
             
             .card:hover {
-                transform: translateY(-2px);
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             }
             

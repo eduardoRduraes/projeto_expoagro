@@ -11,10 +11,37 @@ class ManutencaoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $manutencoes = Manutencao::with(['maquina'])->paginate(10);
-        return view('manutencoes.index',  compact('manutencoes'));
+        $query = Manutencao::with(['maquina']);
+
+        // Filtro por busca (descrição ou nome da máquina)
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('descricao', 'like', '%' . $search . '%')
+                  ->orWhereHas('maquina', function($mq) use ($search) {
+                      $mq->where('nome', 'like', '%' . $search . '%');
+                  });
+            });
+        }
+
+        // Filtro por tipo
+        if ($request->filled('tipo')) {
+            $query->where('tipo', $request->tipo);
+        }
+
+        // Filtro por período de datas
+        if ($request->filled('data_inicio')) {
+            $query->where('data_manutencao', '>=', $request->data_inicio);
+        }
+
+        if ($request->filled('data_fim')) {
+            $query->where('data_manutencao', '<=', $request->data_fim);
+        }
+
+        $manutencoes = $query->paginate(10);
+        return view('manutencoes.index', compact('manutencoes'));
     }
 
     /**

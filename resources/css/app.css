@@ -1,3 +1,6 @@
+/* Tema Agronegócio */
+@import 'agro-theme.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,12 +12,10 @@
 }
 
 .btn:hover {
-    transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .btn:active {
-    transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -179,7 +180,6 @@
 }
 
 .btn-modern:hover {
-    transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
@@ -222,13 +222,11 @@
 }
 
 .btn-action:hover {
-    transform: translateY(-2px) scale(1.05);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     text-decoration: none;
 }
 
 .btn-action:active {
-    transform: translateY(0) scale(0.95);
     transition: transform 0.1s;
 }
 
@@ -247,37 +245,37 @@
 
 @keyframes bounce-info {
     0%, 20%, 60%, 100% {
-        transform: translateY(-2px) scale(1.05);
+        opacity: 1;
     }
     40% {
-        transform: translateY(-4px) scale(1.08);
+        opacity: 0.9;
     }
     80% {
-        transform: translateY(-1px) scale(1.03);
+        opacity: 0.95;
     }
 }
 
 @keyframes shake-warning {
     0%, 100% {
-        transform: translateY(-2px) scale(1.05) translateX(0);
+        opacity: 1;
     }
     10%, 30%, 50%, 70%, 90% {
-        transform: translateY(-2px) scale(1.05) translateX(-2px);
+        opacity: 0.9;
     }
     20%, 40%, 60%, 80% {
-        transform: translateY(-2px) scale(1.05) translateX(2px);
+        opacity: 0.95;
     }
 }
 
 @keyframes pulse-danger {
     0% {
-        transform: translateY(-2px) scale(1.05);
+        opacity: 1;
     }
     50% {
-        transform: translateY(-2px) scale(1.1);
+        opacity: 0.8;
     }
     100% {
-        transform: translateY(-2px) scale(1.05);
+        opacity: 1;
     }
 }
 
