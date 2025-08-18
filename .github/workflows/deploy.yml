@@ -49,5 +49,4 @@ jobs:
       run: |
         echo "Deploying to production server..."
         # Adicione aqui os comandos específicos do seu servidor
-        # Exemplo: rsync, scp, ou deploy via SSHFAIL Tests\Feature\DashboardTest
-⨯ dashboard shows navigation links (0.18s)
+        # Exemplo: rsync, scp, ou deploy via SSH
