@@ -1,32 +1,40 @@
-deploy:
-  runs-on: ubuntu-latest
-  needs: [ back-end-tests ]
+name: Deploy to VPS
 
-  steps:
-    - name: 🔥 Configuring checkout V3
-      uses: actions/checkout@v3
+on:
+  push:
+    branches:
+      - main
 
-    - name: 🔥 Configuring Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 'latest'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [ back-end-tests ]
 
-    - name: 🔨 Installing Node dependencies
-      run: npm install
+    steps:
+      - name: 🔥 Configuring checkout V3
+        uses: actions/checkout@v3
 
-    - name: 📄 Making .env
-      run: |
-        echo "${{ secrets.ENV_DEPLOY }}" > .env
+      - name: 🔥 Configuring Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'latest'
 
-    - name: 🔨 Building application
-      run: npm run build
+      - name: 🔨 Installing Node dependencies
+        run: npm install
 
-    - name: 📂 Upload files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ${{ secrets.FTP_ADDRESS }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./public/build/
-        server-dir: ./projects/project-abc/public/build/
-        dangerous-clean-slate: true
+      - name: 📄 Making .env
+        run: |
+          echo "${{ secrets.ENV_DEPLOY }}" > .env
+
+      - name: 🔨 Building application
+        run: npm run build
+
+      - name: 📂 Upload files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_ADDRESS }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./public/build/
+          server-dir: ./projects/project-abc/public/build/
+          dangerous-clean-slate: true
