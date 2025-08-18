@@ -6,9 +6,14 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="h3 mb-0 text-gray-800">Relatório de Uso de Máquinas</h1>
-                <a href="{{ route('relatorios.index') }}" class="btn-modern btn-secondary">
-                    <i class="fas fa-arrow-left me-2"></i>Voltar aos Relatórios
-                </a>
+                <div class="d-flex gap-2">
+                    <a href="{{ route('relatorios.uso-maquinas.pdf', request()->query()) }}" class="btn-modern btn-danger" target="_blank">
+                        <i class="fas fa-file-pdf me-2"></i>Exportar PDF
+                    </a>
+                    <a href="{{ route('relatorios.index') }}" class="btn-modern btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Voltar aos Relatórios
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -147,6 +152,36 @@
         </div>
     </div>
 
+    <!-- Gráficos -->
+    @if($maquinasMaisUsadas->count() > 0)
+    <div class="row mb-4">
+        <div class="col-lg-6">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-chart-pie me-2"></i>Máquinas Mais Utilizadas (Horas)
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="maquinasHorasChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <i class="fas fa-chart-bar me-2"></i>Quantidade de Usos por Máquina
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="maquinasUsosChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <div class="row">
         <!-- Máquinas Mais Usadas -->
         <div class="col-lg-6 mb-4">
@@ -256,4 +291,107 @@
     </div>
     @endif
 </div>
+
+@push('scripts')
+@if($maquinasMaisUsadas->count() > 0)
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Dados das máquinas mais usadas
+    const maquinasData = @json($maquinasMaisUsadas->values());
+    
+    // Cores para os gráficos
+    const colors = [
+        '#2d5016', '#4a7c59', '#6ba368', '#8bc34a', '#cddc39',
+        '#ffeb3b', '#ffc107', '#ff9800', '#ff5722', '#795548'
+    ];
+    
+    // Gráfico de Horas por Máquina (Pizza)
+    const ctxHoras = document.getElementById('maquinasHorasChart').getContext('2d');
+    new Chart(ctxHoras, {
+        type: 'doughnut',
+        data: {
+            labels: maquinasData.map(item => item.nome),
+            datasets: [{
+                data: maquinasData.map(item => item.total_horas),
+                backgroundColor: colors.slice(0, maquinasData.length),
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 20,
+                        usePointStyle: true
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return `${label}: ${value}h (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+    
+    // Gráfico de Usos por Máquina (Barras)
+    const ctxUsos = document.getElementById('maquinasUsosChart').getContext('2d');
+    new Chart(ctxUsos, {
+        type: 'bar',
+        data: {
+            labels: maquinasData.map(item => item.nome),
+            datasets: [{
+                label: 'Quantidade de Usos',
+                data: maquinasData.map(item => item.total_usos),
+                backgroundColor: colors[0],
+                borderColor: colors[1],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.label}: ${context.parsed.y} usos`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                },
+                x: {
+                    ticks: {
+                        maxRotation: 45,
+                        minRotation: 0
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+@endif
+@endpush
+
 @endsection

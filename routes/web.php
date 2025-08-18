@@ -27,6 +27,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/uso-maquinas', [RelatorioController::class, 'usoMaquinas'])->name('uso-maquinas');
         Route::get('/custos-manutencao', [RelatorioController::class, 'custosManutencao'])->name('custos-manutencao');
         Route::get('/produtividade', [RelatorioController::class, 'produtividade'])->name('produtividade');
+        
+        // Rotas de exportação PDF
+        Route::get('/uso-maquinas/pdf', [RelatorioController::class, 'exportarUsoMaquinasPdf'])->name('uso-maquinas.pdf');
+        Route::get('/custos-manutencao/pdf', [RelatorioController::class, 'exportarCustosManutencaoPdf'])->name('custos-manutencao.pdf');
+        Route::get('/produtividade/pdf', [RelatorioController::class, 'exportarProdutividadePdf'])->name('produtividade.pdf');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

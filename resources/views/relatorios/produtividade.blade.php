@@ -6,9 +6,14 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="h3 mb-0 text-gray-800">Relatório de Produtividade</h1>
-                <a href="{{ route('relatorios.index') }}" class="btn-modern btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Voltar aos Relatórios
-                </a>
+                <div class="d-flex gap-2">
+                    <a href="{{ route('relatorios.produtividade.pdf', request()->query()) }}" class="btn-modern btn-danger" target="_blank">
+                        <i class="fas fa-file-pdf me-2"></i>Exportar PDF
+                    </a>
+                    <a href="{{ route('relatorios.index') }}" class="btn-modern btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Voltar aos Relatórios
+                    </a>
+                </div>
             </div>
         </div>
     </div>

@@ -50,7 +50,7 @@
                 border-radius: 8px;
                 transition: all 0.3s ease;
                 display: block;
-                width: calc(100% - 24px);
+                width: 256px;
                 box-sizing: border-box;
                 text-decoration: none;
             }
