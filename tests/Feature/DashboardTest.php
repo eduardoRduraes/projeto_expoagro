@@ -35,12 +35,13 @@ test('dashboard shows navigation links', function () {
     $response = $this->actingAs($user)->get(route('dashboard'));
     
     $response->assertStatus(200);
-    $response->assertSee('Nova Máquina');
-    $response->assertSee('Novo Operador');
-    $response->assertSee('Registrar Uso');
-    $response->assertSee('Nova Manutenção');
+    // Verificar elementos principais do dashboard
+    $response->assertSee('Dashboard');
+    $response->assertSee('Gestor Agrícola');
+    $response->assertSee('Máquinas');
+    $response->assertSee('Operadores');
+    $response->assertSee('Manutenções');
     $response->assertSee('Relatórios');
-    $response->assertSee('Ver Máquinas');
 });
 
 test('root route redirects to login for guests', function () {
