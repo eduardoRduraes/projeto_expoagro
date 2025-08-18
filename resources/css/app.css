@@ -4,6 +4,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Tema Agronegócio */
 
 /* Custom Button Styles */
 .btn {
@@ -578,4 +579,59 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+
+
+/* FORÇA BRUTA - CSS dos índices com especificidade máxima */
+table.table tbody tr td:first-child,
+table.table tbody tr td.table-index,
+.table.table-bordered.table-hover tbody tr td:first-child {
+    font-size: 0.5rem !important;
+    font-weight: 600 !important;
+    line-height: 0.9 !important;
+    padding: 2px 1px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 30px !important;
+    min-width: 30px !important;
+    max-width: 30px !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+table.table thead tr th:first-child,
+table.table thead tr th.col-id,
+.table.table-bordered.table-hover thead tr th:first-child {
+    font-size: 0.55rem !important;
+    font-weight: 600 !important;
+    padding: 3px 1px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    width: 30px !important;
+    min-width: 30px !important;
+    max-width: 30px !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+/* Força para TODAS as tabelas do sistema */
+.card .table tbody td:first-child,
+.card .table tbody td.table-index {
+    font-size: 0.5rem !important;
+    width: 30px !important;
+    padding: 2px 1px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+.card .table thead th:first-child,
+.card .table thead th.col-id {
+    font-size: 0.55rem !important;
+    width: 30px !important;
+    padding: 3px 1px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
 }

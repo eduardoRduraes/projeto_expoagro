@@ -1,23 +1,23 @@
 <!-- Modern Sidebar Navigation -->
-<div class="sidebar d-flex flex-column" style="width: 280px;">
+<div class="sidebar d-flex flex-column" style="width: 220px;"> <!-- Reduzido de 280px -->
     <!-- Logo/Brand -->
-    <div class="p-4 text-center border-bottom border-light border-opacity-25">
-        <h4 class="text-white mb-0">
-            <i class="fas fa-tractor me-2"></i>
+    <div class="p-3 text-center border-bottom border-light border-opacity-25"> <!-- Reduzido padding -->
+        <h4 class="text-white mb-0" style="font-size: 1.1rem;"> <!-- Fonte menor -->
+            <i class="fas fa-tractor me-2" style="font-size: 1rem;"></i>
             Gestor Agrícola
         </h4>
-        <small class="text-white-50">Sistema de Implementos</small>
+        <small class="text-white-50" style="font-size: 0.7rem;">Sistema de Implementos</small>
     </div>
     
     <!-- Mobile Toggle Button -->
     <button class="btn btn-link text-white d-md-none position-absolute" 
-            style="top: 15px; right: 15px; z-index: 1001;" 
+            style="top: 10px; right: 10px; z-index: 1001; padding: 0.25rem;" 
             onclick="toggleSidebar()">
-        <i class="fas fa-times"></i>
+        <i class="fas fa-times" style="font-size: 0.9rem;"></i>
     </button>
     
     <!-- Navigation Menu -->
-    <nav class="flex-grow-1 py-3">
+    <nav class="flex-grow-1 py-2"> <!-- Reduzido padding -->
         <ul class="nav flex-column">
             <!-- Dashboard -->
             <li class="nav-item">
@@ -75,7 +75,7 @@
             
             <!-- Divider -->
             <li class="nav-item">
-                <hr class="border-light border-opacity-25 mx-3 my-3">
+                <hr class="border-light border-opacity-25 mx-3 my-2"> <!-- Margem reduzida -->
             </li>
             
             <!-- Configurações -->
@@ -90,21 +90,21 @@
     </nav>
     
     <!-- User Info & Logout -->
-    <div class="p-3 border-top border-light border-opacity-25">
-        <div class="d-flex align-items-center mb-3">
-            <div class="bg-white bg-opacity-20 rounded-circle p-2 me-3">
-                <i class="fas fa-user text-white"></i>
+    <div class="p-2 border-top border-light border-opacity-25"> <!-- Padding reduzido -->
+        <div class="d-flex align-items-center mb-2"> <!-- Margem reduzida -->
+            <div class="bg-white bg-opacity-20 rounded-circle p-1 me-2"> <!-- Padding e margem reduzidos -->
+                <i class="fas fa-user text-white" style="font-size: 0.8rem;"></i>
             </div>
             <div class="flex-grow-1">
-                <div class="text-white fw-medium">{{ Auth::user()->name }}</div>
-                <small class="text-white-50">{{ Auth::user()->email }}</small>
+                <div class="text-white fw-medium" style="font-size: 0.85rem;">{{ Auth::user()->name }}</div>
+                <small class="text-white-50" style="font-size: 0.7rem;">{{ Auth::user()->email }}</small>
             </div>
         </div>
         
         <form method="POST" action="{{ route('logout') }}" class="d-grid">
             @csrf
-            <button type="submit" class="btn-modern btn-outline-light btn-sm">
-                <i class="fas fa-sign-out-alt me-2"></i>
+            <button type="submit" class="btn-modern btn-outline-light btn-sm" style="padding: 0.375rem 0.75rem; font-size: 0.8rem;">
+                <i class="fas fa-sign-out-alt me-1" style="font-size: 0.75rem;"></i>
                 Sair
             </button>
         </form>
@@ -119,7 +119,7 @@
 
 <!-- Mobile Menu Button -->
 <button class="btn-modern btn-primary d-md-none position-fixed" 
-        style="top: 20px; left: 20px; z-index: 1002;" 
+        style="top: 15px; left: 15px; z-index: 1002; width: 40px; height: 40px; padding: 0.5rem;" 
         onclick="toggleSidebar()">
-    <i class="fas fa-bars"></i>
+    <i class="fas fa-bars" style="font-size: 0.9rem;"></i>
 </button>

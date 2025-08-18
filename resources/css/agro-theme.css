@@ -486,36 +486,89 @@ body {
     }
 }
 
-@media (min-width: 1200px) and (max-width: 1599px) {
+@media (min-width: 1280px) and (max-width: 1919px) {
     .container-fluid {
-        max-width: 1400px;
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 0 30px;
+        padding: 0 20px;
     }
     
     .page-header {
-        padding: 30px 0;
-        margin-bottom: 30px;
+        padding: 20px 0;
+        margin-bottom: 20px;
     }
     
-    .page-title {
-        font-size: 2rem;
-        font-weight: 700;
+    .page-title, h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+    }
+    
+    .page-subtitle {
+        font-size: 0.9rem;
+        margin-top: 4px;
+    }
+    
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(45, 80, 22, 0.06);
     }
     
     .stat-card {
-        padding: 20px;
+        padding: 16px;
     }
     
-    .stat-value {
-        font-size: 2.2rem;
+    .stat-value, h3 {
+        font-size: 1.8rem;
         font-weight: 700;
     }
     
+    .stat-label {
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+    
     .stat-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 2rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1.4rem;
+    }
+    
+    .btn-modern {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+    
+    .card-title, h5 {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+    
+    .card-header {
+        padding: 12px 16px;
+    }
+    
+    .card-body {
+        padding: 16px;
+    }
+    
+    .badge {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+    
+    .text-muted, small {
+        font-size: 0.75rem;
+    }
+    
+    .fw-medium {
+        font-size: 0.85rem;
+    }
+    
+    h6 {
+        font-size: 0.9rem;
+        font-weight: 600;
     }
 }
 
@@ -641,6 +694,48 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--agro-green-primary);
+}
+
+/* Ajustes gerais para fontes menores */
+body {
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.mb-4 {
+    margin-bottom: 1rem !important;
+}
+
+.mb-xl-4 {
+    margin-bottom: 1rem !important;
+}
+
+.mb-xl-5 {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Ajustes específicos para o dashboard */
+.stat-card .ms-3, .stat-card .ms-xl-4 {
+    margin-left: 0.75rem !important;
+}
+
+.stat-card .mb-1, .stat-card .mb-xl-2 {
+    margin-bottom: 0.25rem !important;
+}
+
+/* Reduzir espaçamentos no dashboard */
+.row.mb-4.mb-xl-5 {
+    margin-bottom: 1.5rem !important;
+}
+
+.col-sm-6.col-xl-3.mb-3.mb-xl-4 {
+    margin-bottom: 1rem !important;
+}
+
+/* Ajustar cards de uso recente */
+.bg-light.rounded {
+    padding: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
 }
 
 /* ===== PÁGINA DE LOGIN - TEMA AGRONEGÓCIO ===== */
@@ -945,3 +1040,295 @@ body {
         font-size: 25px;
     }
 }
+
+/* CSS GLOBAL - Índices pequenos para TODAS as tabelas */
+
+/* Estilos para TODOS os índices de TODAS as tabelas */
+.table tbody td:first-child,
+.table tbody td.table-index {
+    font-size: 0.55rem !important; /* Fonte bem pequena */
+    font-weight: 600 !important;
+    line-height: 1.0 !important;
+    padding: 3px 2px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 35px !important;
+    min-width: 35px !important;
+    max-width: 35px !important;
+}
+
+/* Headers dos índices para TODAS as tabelas */
+.table thead th:first-child,
+.table thead th.col-id {
+    font-size: 0.6rem !important;
+    font-weight: 600 !important;
+    padding: 4px 2px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    width: 35px !important;
+    min-width: 35px !important;
+    max-width: 35px !important;
+}
+
+/* Garantir que TODAS as primeiras colunas sejam compactas */
+table.table tbody tr td:nth-child(1),
+table.table thead tr th:nth-child(1) {
+    font-size: 0.55rem !important;
+    width: 35px !important;
+    min-width: 35px !important;
+    max-width: 35px !important;
+    padding: 3px 2px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}
+
+/* Específico para diferentes tipos de tabela */
+.table-bordered tbody td:first-child,
+.table-hover tbody td:first-child,
+.table-responsive .table tbody td:first-child {
+    font-size: 0.55rem !important;
+    width: 35px !important;
+    padding: 3px 2px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+.table-bordered thead th:first-child,
+.table-hover thead th:first-child,
+.table-responsive .table thead th:first-child {
+    font-size: 0.6rem !important;
+    width: 35px !important;
+    padding: 4px 2px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+/* Para mobile - ainda menor */
+@media (max-width: 768px) {
+    .table tbody td:first-child,
+    .table tbody td.table-index {
+        font-size: 0.5rem !important;
+        width: 30px !important;
+        min-width: 30px !important;
+        max-width: 30px !important;
+        padding: 2px 1px !important;
+    }
+    
+    .table thead th:first-child,
+    .table thead th.col-id {
+        font-size: 0.55rem !important;
+        width: 30px !important;
+        min-width: 30px !important;
+        max-width: 30px !important;
+        padding: 3px 1px !important;
+    }
+}
+
+/* Para telas médias (720p) */
+@media (min-width: 769px) and (max-width: 1366px) {
+    .table tbody td:first-child,
+    .table tbody td.table-index {
+        font-size: 0.5rem !important;
+        width: 32px !important;
+        min-width: 32px !important;
+        max-width: 32px !important;
+        padding: 2px 1px !important;
+    }
+    
+    .table thead th:first-child,
+    .table thead th.col-id {
+        font-size: 0.55rem !important;
+        width: 32px !important;
+        min-width: 32px !important;
+        max-width: 32px !important;
+        padding: 3px 1px !important;
+    }
+}
+
+/* Sobrescrever qualquer estilo específico das views */
+.card .table tbody td:first-child,
+.card .table tbody td.table-index {
+    font-size: 0.55rem !important;
+    width: 35px !important;
+    padding: 3px 2px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+.card .table thead th:first-child,
+.card .table thead th.col-id {
+    font-size: 0.6rem !important;
+    width: 35px !important;
+    padding: 4px 2px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+/* Garantir que funcione em tabelas com classes específicas */
+.table.table-bordered.table-hover tbody td:first-child {
+    font-size: 0.55rem !important;
+    width: 35px !important;
+    padding: 3px 2px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}
+
+.table.table-bordered.table-hover thead th:first-child {
+    font-size: 0.6rem !important;
+    width: 35px !important;
+    padding: 4px 2px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+.table-responsive {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.btn-group-modern {
+    gap: 8px;
+}
+
+.btn-action {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    min-width: 120px;
+}
+
+.badge {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.card-header {
+    padding: 25px 30px;
+    border-bottom: 2px solid rgba(45, 80, 22, 0.1);
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.form-control, .form-select {
+    padding: 16px 20px;
+    font-size: 1rem;
+    border-radius: 12px;
+}
+
+.form-label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+/* ... existing code ... */
+
+/* Otimização de containers para melhor aproveitamento */
+.container-fluid {
+    padding-left: 8px;
+    padding-right: 8px;
+    max-width: 100%;
+}
+
+/* Cards com margens otimizadas */
+.card {
+    margin-bottom: 1rem;
+}
+
+.card-body {
+    padding: 1rem; /* Reduzido para aproveitar melhor o espaço */
+}
+
+.card-header {
+    padding: 0.75rem 1rem; /* Otimizado */
+}
+
+/* Tabelas com melhor aproveitamento */
+.table-responsive {
+    margin: 0; /* Remove margens desnecessárias */
+}
+
+.table {
+    margin-bottom: 0;
+    width: 100%;
+}
+
+/* Otimização para Desktop 720p - Melhor aproveitamento */
+@media (min-width: 1280px) and (max-width: 1919px) {
+    .container-fluid {
+        max-width: 100%; /* Usar toda largura disponível */
+        margin: 0;
+        padding: 0 8px; /* Padding mínimo */
+    }
+    
+    .main-content {
+        margin: 10px 5px; /* Margens mínimas */
+        padding: 15px; /* Padding reduzido */
+    }
+    
+    .page-header {
+        padding: 12px 0;
+        margin-bottom: 15px;
+    }
+    
+    .card {
+        margin-bottom: 0.75rem;
+    }
+    
+    .row {
+        margin-left: -0.375rem;
+        margin-right: -0.375rem;
+    }
+    
+    .col-sm-6, .col-xl-3, .col-lg-6, .col-md-3, .col-md-4 {
+        padding-left: 0.375rem;
+        padding-right: 0.375rem;
+    }
+}
+
+/* Ajustes específicos para tabelas */
+.table thead th {
+    padding: 8px 6px; /* Padding otimizado */
+    font-size: 0.85rem;
+}
+
+.table tbody td {
+    padding: 8px 6px; /* Padding otimizado */
+    font-size: 0.8rem;
+}
+
+/* Botões com espaçamento otimizado */
+.btn-group-modern {
+    gap: 4px; /* Reduzido */
+}
+
+.btn-action {
+    padding: 6px 10px; /* Mais compacto */
+    font-size: 0.8rem;
+}
+
+/* Filtros com melhor aproveitamento */
+.card.mb-4 .card-body {
+    padding: 0.75rem;
+}
+
+.form-control, .form-select {
+    padding: 8px 12px; /* Reduzido */
+    font-size: 0.85rem;
+}
+
+/* ... existing code ... */

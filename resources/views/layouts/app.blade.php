@@ -41,25 +41,28 @@
                 background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
                 min-height: 100vh;
                 box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                width: 220px; /* Reduzido de 280px para 220px */
             }
             
             .sidebar .nav-link {
                 color: rgba(255,255,255,0.8);
-                padding: 12px 32px;
-                margin: 4px 12px;
-                border-radius: 8px;
+                padding: 8px 16px; /* Reduzido de 12px 32px */
+                margin: 2px 8px; /* Reduzido de 4px 12px */
+                border-radius: 6px; /* Reduzido de 8px */
                 transition: all 0.3s ease;
                 display: block;
-                width: 256px;
+                width: 200px; /* Reduzido de 256px */
                 box-sizing: border-box;
                 text-decoration: none;
+                font-size: 0.9rem; /* Fonte menor */
             }
             
             .sidebar .nav-link i {
                 display: inline-block;
-                width: 20px;
-                margin-right: 12px;
+                width: 16px; /* Reduzido de 20px */
+                margin-right: 8px; /* Reduzido de 12px */
                 text-align: center;
+                font-size: 0.9rem; /* Ícones menores */
             }
             
             .sidebar .nav-link:hover,
@@ -68,96 +71,49 @@
                 color: white;
             }
             
-            .main-content {
-                background: white;
-                border-radius: 12px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-                margin: 20px;
-                padding: 30px;
+            /* Ajustar header da sidebar */
+            .sidebar .p-4 {
+                padding: 1rem !important; /* Reduzido */
             }
             
-            .page-header {
-                background: white;
-                border-bottom: 1px solid var(--border-color);
-                padding: 20px 0;
-                margin-bottom: 30px;
+            .sidebar h4 {
+                font-size: 1.1rem; /* Reduzido */
+                margin-bottom: 0.25rem !important;
             }
             
-            .btn-primary {
-                background: var(--primary-color);
-                border-color: var(--primary-color);
-                padding: 10px 20px;
-                border-radius: 8px;
-                font-weight: 500;
-                transition: all 0.3s ease;
+            .sidebar small {
+                font-size: 0.7rem; /* Menor */
             }
             
-            .btn-primary:hover {
-                background: var(--primary-dark);
-                border-color: var(--primary-dark);
-                box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            /* Ajustar seção do usuário */
+            .sidebar .p-3 {
+                padding: 0.75rem !important;
             }
             
-            .card {
-                border: none;
-                border-radius: 12px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-                transition: all 0.3s ease;
+            .sidebar .bg-white.bg-opacity-20 {
+                padding: 0.5rem !important;
             }
             
-            .card:hover {
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            .sidebar .fw-medium {
+                font-size: 0.85rem;
             }
             
-            .table {
-                border-radius: 8px;
-                overflow: hidden;
+            .sidebar .text-white-50 {
+                font-size: 0.7rem;
             }
             
-            .table thead th {
-                background: var(--light-bg);
-                border: none;
-                font-weight: 600;
-                color: var(--secondary-color);
-                padding: 16px;
+            /* Ajustar botão de logout */
+            .sidebar .btn-sm {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.8rem;
             }
             
-            .table tbody td {
-                padding: 16px;
-                border-color: var(--border-color);
-                vertical-align: middle;
-            }
-            
-            .badge {
-                padding: 6px 12px;
-                border-radius: 20px;
-                font-weight: 500;
-            }
-            
-            .form-control, .form-select {
-                border: 1px solid var(--border-color);
-                border-radius: 8px;
-                padding: 12px 16px;
-                transition: all 0.3s ease;
-            }
-            
-            .form-control:focus, .form-select:focus {
-                border-color: var(--primary-color);
-                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-            }
-            
-            .alert {
-                border: none;
-                border-radius: 8px;
-                padding: 16px 20px;
-            }
-            
-            /* Mobile Navigation */
+            /* Mobile adjustments */
             @media (max-width: 768px) {
                 .sidebar {
                     position: fixed;
-                    left: -280px;
-                    width: 280px;
+                    left: -220px; /* Ajustado */
+                    width: 220px; /* Ajustado */
                     z-index: 1050;
                     transition: left 0.3s ease;
                     height: 100vh;
@@ -200,14 +156,14 @@
                     background: var(--primary-color);
                     border: none;
                     color: white;
-                    width: 45px;
-                    height: 45px;
-                    border-radius: 8px;
+                    width: 40px; /* Reduzido de 45px */
+                    height: 40px; /* Reduzido de 45px */
+                    border-radius: 6px;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
                 }
                 
                 .page-header {
-                    padding-left: 70px;
+                    padding-left: 60px; /* Ajustado */
                 }
             }
             
@@ -217,7 +173,7 @@
                 }
                 
                 .page-header {
-                    padding-left: 60px;
+                    padding-left: 55px;
                     padding-right: 10px;
                 }
             }

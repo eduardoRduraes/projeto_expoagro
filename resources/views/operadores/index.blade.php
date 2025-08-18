@@ -61,6 +61,7 @@
                             <option value="C" {{ request('categoria_cnh') == 'C' ? 'selected' : '' }}>C - Veículos de Carga</option>
                             <option value="D" {{ request('categoria_cnh') == 'D' ? 'selected' : '' }}>D - Transporte de Passageiros</option>
                             <option value="E" {{ request('categoria_cnh') == 'E' ? 'selected' : '' }}>E - Veículos Articulados</option>
+                            <option value="AB" {{ request('categoria_cnh') == 'AB' ? 'selected' : '' }}>AB - Moto + Carro</option>
                         </select>
                     </div>
                     <div class="col-md-2 mb-3 d-flex align-items-end">
@@ -93,7 +94,7 @@
                     <table class="table table-bordered table-hover" width="100%" cellspacing="0">
                         <thead class="table-light">
                             <tr>
-                                <th class="text-center" style="width: 80px;">
+                                <th class="text-center col-id">
                                     <i class="fas fa-hashtag"></i> ID
                                 </th>
                                 <th>
@@ -119,7 +120,7 @@
                         <tbody>
                             @foreach($operadores as $operador)
                                 <tr>
-                                    <td class="text-center fw-bold">#{{ $operador->id }}</td>
+                                    <td class="text-center table-index">#{{ $operador->id }}</td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar-sm bg-light rounded-circle d-flex align-items-center justify-content-center me-2">
@@ -163,26 +164,26 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group-modern" role="group">
-                            <a href="{{ route('operadores.show', $operador->id) }}" 
-                               class="btn-action btn-info" 
-                               title="Visualizar">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="{{ route('operadores.edit', $operador->id) }}" 
-                               class="btn-action btn-warning" 
-                               title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form action="{{ route('operadores.destroy', $operador->id) }}" 
-                                  method="POST" class="d-inline" 
-                                  onsubmit="return confirm('Tem certeza que deseja excluir este operador?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn-action btn-danger" title="Excluir">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </div>
+                                            <a href="{{ route('operadores.show', $operador->id) }}" 
+                                               class="btn-action btn-info" 
+                                               title="Visualizar">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('operadores.edit', $operador->id) }}" 
+                                               class="btn-action btn-warning" 
+                                               title="Editar">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('operadores.destroy', $operador->id) }}" 
+                                                  method="POST" class="d-inline" 
+                                                  onsubmit="return confirm('Tem certeza que deseja excluir este operador?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn-action btn-danger" title="Excluir">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

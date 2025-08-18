@@ -73,12 +73,12 @@
                                value="{{ request('data_fim') }}">
                     </div>
                     <div class="col-md-2 mb-3 d-flex align-items-end">
-                        <div class="d-flex gap-2 w-100">
-                            <button type="submit" class="btn-modern btn-primary flex-fill">
-                                <i class="fas fa-search me-2"></i>Filtrar
+                        <div class="btn-group w-100" role="group">
+                            <button type="submit" class="btn-modern btn-primary">
+                                <i class="fas fa-search"></i>
                             </button>
-                            <a href="{{ route('usomaquinas.index') }}" class="btn-modern btn-secondary flex-fill">
-                                <i class="fas fa-times me-2"></i>Limpar
+                            <a href="{{ route('usomaquinas.index') }}" class="btn-modern btn-secondary">
+                                <i class="fas fa-times"></i>
                             </a>
                         </div>
                     </div>
@@ -102,10 +102,10 @@
                     <table class="table table-bordered table-hover" width="100%" cellspacing="0">
                         <thead class="table-light">
                             <tr>
-                                <th class="text-center" style="width: 80px;">
+                                <th class="text-center col-id">
                                     <i class="fas fa-hashtag"></i> ID
                                 </th>
-                                <th class="text-center" style="width: 120px;">
+                                <th class="text-center" style="width: 100px;">
                                     <i class="fas fa-calendar"></i> Data
                                 </th>
                                 <th>
@@ -114,16 +114,16 @@
                                 <th>
                                     <i class="fas fa-user"></i> Operador
                                 </th>
-                                <th class="text-center" style="width: 100px;">
+                                <th class="text-center" style="width: 80px;">
                                     <i class="fas fa-play"></i> Início
                                 </th>
-                                <th class="text-center" style="width: 100px;">
+                                <th class="text-center" style="width: 80px;">
                                     <i class="fas fa-stop"></i> Fim
                                 </th>
-                                <th class="text-center" style="width: 100px;">
-                                    <i class="fas fa-clock"></i> Total (h)
+                                <th class="text-center" style="width: 80px;">
+                                    <i class="fas fa-clock"></i> Total
                                 </th>
-                                <th class="text-center" style="width: 180px;">
+                                <th class="text-center" style="width: 160px;">
                                     <i class="fas fa-cogs"></i> Ações
                                 </th>
                             </tr>
@@ -131,7 +131,7 @@
                         <tbody>
                             @foreach($usos as $uso)
                                 <tr>
-                                    <td class="text-center fw-bold">#{{ $uso->id }}</td>
+                                    <td class="text-center table-index">#{{ $uso->id }}</td>
                                     <td class="text-center">
                                         <span class="badge bg-light text-dark">
                                             {{ \Carbon\Carbon::parse($uso->data)->format('d/m/Y') }}
@@ -175,26 +175,26 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group-modern" role="group">
-                            <a href="{{ route('usomaquinas.show', $uso->id) }}" 
-                               class="btn-action btn-info" 
-                               title="Visualizar">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="{{ route('usomaquinas.edit', $uso->id) }}" 
-                               class="btn-action btn-warning" 
-                               title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form action="{{ route('usomaquinas.destroy', $uso->id) }}" 
-                                  method="POST" class="d-inline" 
-                                  onsubmit="return confirm('Tem certeza que deseja excluir este registro de uso?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn-action btn-danger" title="Excluir">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </div>
+                                            <a href="{{ route('usomaquinas.show', $uso->id) }}" 
+                                               class="btn-action btn-info" 
+                                               title="Visualizar">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('usomaquinas.edit', $uso->id) }}" 
+                                               class="btn-action btn-warning" 
+                                               title="Editar">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('usomaquinas.destroy', $uso->id) }}" 
+                                                  method="POST" class="d-inline" 
+                                                  onsubmit="return confirm('Tem certeza que deseja excluir este registro de uso?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn-action btn-danger" title="Excluir">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
