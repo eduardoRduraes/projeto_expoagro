@@ -56,53 +56,74 @@
     </script>
 @endpush
 
-<div class="mb-3">
-    <label for="nome" class="form-label">
-        <i class="fas fa-tractor me-2"></i>Nome da Máquina
-        <span class="text-danger">*</span>
-    </label>
-    <input type="text" class="form-control @error('nome') is-invalid @enderror" 
-           id="nome" name="nome" 
-           value="{{ old('nome', $maquina->nome ?? '') }}" 
-           required placeholder="Digite o nome da máquina">
-    @error('nome')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @else
-        <div class="invalid-feedback">Nome deve ter pelo menos 2 caracteres</div>
-    @enderror
-    <div class="form-text">Nome identificador da máquina</div>
+<div class="row">
+    <div class="col-12 col-md-6 col-xl-4 mb-3 mb-xl-4">
+        <label for="nome" class="form-label">
+            <i class="fas fa-tractor me-2"></i>Nome da Máquina
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control @error('nome') is-invalid @enderror" 
+               id="nome" name="nome" 
+               value="{{ old('nome', $maquina->nome ?? '') }}" 
+               required placeholder="Digite o nome da máquina">
+        @error('nome')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @else
+            <div class="invalid-feedback">Nome deve ter pelo menos 2 caracteres</div>
+        @enderror
+        <div class="form-text">Nome identificador da máquina</div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-4 mb-3 mb-xl-4">
+        <label for="modelo" class="form-label">
+            <i class="fas fa-tag me-2"></i>Modelo
+        </label>
+        <input type="text" class="form-control @error('modelo') is-invalid @enderror" 
+               id="modelo" name="modelo" 
+               value="{{ old('modelo', $maquina->modelo ?? '') }}" 
+               placeholder="Ex: John Deere 6110J">
+        @error('modelo')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+        <div class="form-text">Modelo específico da máquina (opcional)</div>
+    </div>
+    
+    <div class="col-12 col-xl-4 mb-3 mb-xl-4">
+        <label for="ano" class="form-label">
+            <i class="fas fa-calendar me-2"></i>Ano
+            <span class="text-danger">*</span>
+        </label>
+        <input type="number" class="form-control @error('ano') is-invalid @enderror" 
+               id="ano" name="ano" 
+               value="{{ old('ano', $maquina->ano ?? '') }}" 
+               required min="1990" max="{{ date('Y') + 1 }}" 
+               placeholder="{{ date('Y') }}">
+        @error('ano')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @else
+            <div class="invalid-feedback">Ano deve estar entre 1990 e {{ date('Y') + 1 }}</div>
+        @enderror
+        <div class="form-text">Ano de fabricação da máquina</div>
+    </div>
 </div>
 
-<div class="mb-3">
-    <label for="modelo" class="form-label">
-        <i class="fas fa-tag me-2"></i>Modelo
-    </label>
-    <input type="text" class="form-control @error('modelo') is-invalid @enderror" 
-           id="modelo" name="modelo" 
-           value="{{ old('modelo', $maquina->modelo ?? '') }}" 
-           placeholder="Ex: John Deere 6110J">
-    @error('modelo')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-    <div class="form-text">Modelo específico da máquina (opcional)</div>
-</div>
-
-<div class="mb-3">
-    <label for="numero_serie" class="form-label">
-        <i class="fas fa-barcode me-2"></i>Número de Série
-        <span class="text-danger">*</span>
-    </label>
-    <input type="text" class="form-control @error('numero_serie') is-invalid @enderror" 
-           id="numero_serie" name="numero_serie" 
-           value="{{ old('numero_serie', $maquina->numero_serie ?? '') }}" 
-           required placeholder="Digite o número de série">
-    @error('numero_serie')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @else
-        <div class="invalid-feedback">Número de série deve ter pelo menos 3 caracteres</div>
-    @enderror
-    <div class="form-text">Número único de identificação da máquina</div>
-</div>
+<div class="row">
+    <div class="col-12 col-md-8 mb-3">
+        <label for="numero_serie" class="form-label">
+            <i class="fas fa-barcode me-2"></i>Número de Série
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text" class="form-control @error('numero_serie') is-invalid @enderror" 
+               id="numero_serie" name="numero_serie" 
+               value="{{ old('numero_serie', $maquina->numero_serie ?? '') }}" 
+               required placeholder="Digite o número de série">
+        @error('numero_serie')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @else
+            <div class="invalid-feedback">Número de série deve ter pelo menos 3 caracteres</div>
+        @enderror
+        <div class="form-text">Número único de identificação da máquina</div>
+    </div>
 
 <div class="mb-3">
     <label for="tipo" class="form-label">

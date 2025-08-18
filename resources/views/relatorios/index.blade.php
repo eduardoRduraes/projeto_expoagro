@@ -2,10 +2,14 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Relatórios</h1>
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+            <div>
+                <h1 class="page-title mb-1">
+                    <i class="fas fa-chart-bar me-2"></i>Relatórios
+                </h1>
+                <p class="page-subtitle mb-0">Visualize relatórios e estatísticas do sistema</p>
             </div>
         </div>
     </div>

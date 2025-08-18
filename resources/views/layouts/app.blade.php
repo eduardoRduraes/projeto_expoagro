@@ -152,13 +152,16 @@
                 padding: 16px 20px;
             }
             
+            /* Mobile Navigation */
             @media (max-width: 768px) {
                 .sidebar {
                     position: fixed;
-                    left: -250px;
-                    width: 250px;
-                    z-index: 1000;
+                    left: -280px;
+                    width: 280px;
+                    z-index: 1050;
                     transition: left 0.3s ease;
+                    height: 100vh;
+                    overflow-y: auto;
                 }
                 
                 .sidebar.show {
@@ -166,8 +169,56 @@
                 }
                 
                 .main-content {
-                    margin: 10px;
-                    padding: 20px;
+                    margin: 0;
+                    padding: 15px;
+                    width: 100%;
+                }
+                
+                .mobile-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    z-index: 1040;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: all 0.3s ease;
+                }
+                
+                .mobile-overlay.show {
+                    opacity: 1;
+                    visibility: visible;
+                }
+                
+                .mobile-toggle {
+                    position: fixed;
+                    top: 15px;
+                    left: 15px;
+                    z-index: 1060;
+                    background: var(--primary-color);
+                    border: none;
+                    color: white;
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+                }
+                
+                .page-header {
+                    padding-left: 70px;
+                }
+            }
+            
+            @media (max-width: 576px) {
+                .main-content {
+                    padding: 10px;
+                }
+                
+                .page-header {
+                    padding-left: 60px;
+                    padding-right: 10px;
                 }
             }
         </style>
@@ -176,6 +227,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
+        <!-- Mobile Toggle Button -->
+        <button class="mobile-toggle d-md-none" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Mobile Overlay -->
+        <div class="mobile-overlay" onclick="closeSidebar()"></div>
+        
         <div class="d-flex">
             @include('layouts.navigation')
             
@@ -229,12 +288,52 @@
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         
-        <!-- Custom Scripts -->
+        <!-- Mobile Navigation Script -->
         <script>
-            // Mobile sidebar toggle
             function toggleSidebar() {
-                document.querySelector('.sidebar').classList.toggle('show');
+                const sidebar = document.querySelector('.sidebar');
+                const overlay = document.querySelector('.mobile-overlay');
+                const toggleBtn = document.querySelector('.mobile-toggle i');
+                
+                sidebar.classList.toggle('show');
+                overlay.classList.toggle('show');
+                
+                // Change icon
+                if (sidebar.classList.contains('show')) {
+                    toggleBtn.className = 'fas fa-times';
+                } else {
+                    toggleBtn.className = 'fas fa-bars';
+                }
             }
+            
+            function closeSidebar() {
+                const sidebar = document.querySelector('.sidebar');
+                const overlay = document.querySelector('.mobile-overlay');
+                const toggleBtn = document.querySelector('.mobile-toggle i');
+                
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+                toggleBtn.className = 'fas fa-bars';
+            }
+            
+            // Close sidebar when clicking on nav links (mobile)
+            document.addEventListener('DOMContentLoaded', function() {
+                const navLinks = document.querySelectorAll('.sidebar .nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (window.innerWidth <= 768) {
+                            closeSidebar();
+                        }
+                    });
+                });
+                
+                // Close sidebar on window resize if desktop
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        closeSidebar();
+                    }
+                });
+            });
             
             // Auto-hide alerts after 5 seconds
             setTimeout(function() {
@@ -245,5 +344,7 @@
                 });
             }, 5000);
         </script>
+        
+        @stack('scripts')
     </body>
 </html>

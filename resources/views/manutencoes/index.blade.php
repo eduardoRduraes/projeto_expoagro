@@ -2,17 +2,21 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Cabeçalho da Página -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <div>
-            <h1 class="h3 mb-0 text-gray-800">
-                <i class="fas fa-wrench me-2"></i>Manutenções
-            </h1>
-            <p class="mb-0 text-muted">Gerencie as manutenções das máquinas</p>
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+            <div>
+                <h1 class="page-title mb-1">
+                    <i class="fas fa-wrench me-2"></i>Manutenções
+                </h1>
+                <p class="page-subtitle mb-0">Gerencie as manutenções das máquinas</p>
+            </div>
+            <div class="w-100 w-md-auto">
+                <a href="{{ route('manutencoes.create') }}" class="btn-modern btn-primary w-100 w-md-auto">
+                    <i class="fas fa-plus me-2"></i>Nova Manutenção
+                </a>
+            </div>
         </div>
-        <a href="{{ route('manutencoes.create') }}" class="btn-modern btn-primary">
-            <i class="fas fa-plus me-2"></i>Nova Manutenção
-        </a>
     </div>
 
     <!-- Mensagem de Sucesso -->
@@ -24,11 +28,9 @@
     @endif
 
     <!-- Filtros -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
-                <i class="fas fa-filter me-2"></i>Filtros
-            </h6>
+    <div class="card mb-4">
+        <div class="card-header d-md-none">
+            <h6 class="mb-0"><i class="fas fa-filter me-2"></i>Filtros</h6>
         </div>
         <div class="card-body">
             <form method="GET" action="{{ route('manutencoes.index') }}">
@@ -56,12 +58,13 @@
                         <input type="date" class="form-control" id="data_fim" name="data_fim" 
                                value="{{ request('data_fim') }}">
                     </div>
-                    <div class="col-md-3 mb-3 d-flex align-items-end">
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn-modern btn-primary">
+                    <div class="col-12 col-md-12 col-lg-3">
+                        <label class="form-label d-none d-md-block">&nbsp;</label>
+                        <div class="d-flex flex-column flex-sm-row gap-2 mt-2 mt-md-0">
+                            <button type="submit" class="btn-modern btn-primary flex-fill">
                                 <i class="fas fa-search me-2"></i>Filtrar
                             </button>
-                            <a href="{{ route('manutencoes.index') }}" class="btn-modern btn-secondary">
+                            <a href="{{ route('manutencoes.index') }}" class="btn-modern btn-secondary flex-fill">
                                 <i class="fas fa-times me-2"></i>Limpar
                             </a>
                         </div>
@@ -72,11 +75,14 @@
     </div>
 
     <!-- Tabela de Manutenções -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
-                <i class="fas fa-list me-2"></i>Lista de Manutenções
-            </h6>
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-list me-2"></i><span class="d-none d-sm-inline">Lista de </span>Manutenções
+                </h5>
+                <span class="badge bg-primary">{{ $manutencoes->total() }} manutenções</span>
+            </div>
         </div>
         <div class="card-body">
             @if($manutencoes->count() > 0)

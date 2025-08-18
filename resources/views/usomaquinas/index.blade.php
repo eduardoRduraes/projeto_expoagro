@@ -2,18 +2,21 @@
 
 @section('content')
 <div class="container-fluid">
-    {{-- Cabeçalho da Página --}}
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <div>
-            <h1 class="h3 mb-0 text-gray-800">
-                <i class="fas fa-clock text-primary me-2"></i>
-                Uso de Máquinas
-            </h1>
-            <p class="mb-0 text-muted">Gerencie os registros de uso das máquinas</p>
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+            <div>
+                <h1 class="page-title mb-1">
+                    <i class="fas fa-clock me-2"></i>Uso de Máquinas
+                </h1>
+                <p class="page-subtitle mb-0">Gerencie os registros de uso das máquinas</p>
+            </div>
+            <div class="w-100 w-md-auto">
+                <a href="{{ route('usomaquinas.create') }}" class="btn-modern btn-primary w-100 w-md-auto">
+                    <i class="fas fa-plus me-2"></i>Novo Registro
+                </a>
+            </div>
         </div>
-        <a href="{{ route('usomaquinas.create') }}" class="btn-modern btn-primary">
-            <i class="fas fa-plus me-2"></i>Novo Registro
-        </a>
     </div>
 
     {{-- Mensagem de Sucesso --}}
@@ -25,13 +28,10 @@
         </div>
     @endif
 
-    {{-- Card com Filtros --}}
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
-                <i class="fas fa-filter me-2"></i>
-                Filtros de Busca
-            </h6>
+    <!-- Filtros -->
+    <div class="card mb-4">
+        <div class="card-header d-md-none">
+            <h6 class="mb-0"><i class="fas fa-filter me-2"></i>Filtros</h6>
         </div>
         <div class="card-body">
             <form method="GET" action="{{ route('usomaquinas.index') }}">
