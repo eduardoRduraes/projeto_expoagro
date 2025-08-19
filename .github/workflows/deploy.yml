@@ -91,6 +91,17 @@ jobs:
         cd deploy
         tar -czf ../deploy.tar.gz .
         
+    - name: Debug Secrets
+      run: |
+        echo "Checking if secrets are available..."
+        echo "FTP_HOST length: ${#FTP_HOST}"
+        echo "FTP_USERNAME length: ${#FTP_USERNAME}"
+        echo "FTP_SERVER_DIR length: ${#FTP_SERVER_DIR}"
+      env:
+        FTP_HOST: ${{ secrets.FTP_HOST }}
+        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
+        
     - name: Deploy to KingHost via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
