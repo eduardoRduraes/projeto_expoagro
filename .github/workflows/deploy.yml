@@ -93,14 +93,22 @@ jobs:
         
     - name: Debug Secrets
       run: |
-        echo "Checking if secrets are available..."
-        echo "FTP_HOST length: $($env:FTP_HOST.Length)"
-        echo "FTP_USERNAME length: $($env:FTP_USERNAME.Length)"
-        echo "FTP_SERVER_DIR length: $($env:FTP_SERVER_DIR.Length)"
-        echo "FTP_HOST value (first 10 chars): $($env:FTP_HOST.Substring(0, [Math]::Min(10, $env:FTP_HOST.Length)))"
+        echo "=== DEBUGGING SECRETS ==="
+        echo "FTP_HOST exists: $([string]::IsNullOrEmpty($env:FTP_HOST) -eq $false)"
+        echo "FTP_USERNAME exists: $([string]::IsNullOrEmpty($env:FTP_USERNAME) -eq $false)"
+        echo "FTP_PASSWORD exists: $([string]::IsNullOrEmpty($env:FTP_PASSWORD) -eq $false)"
+        echo "FTP_SERVER_DIR exists: $([string]::IsNullOrEmpty($env:FTP_SERVER_DIR) -eq $false)"
+        if ($env:FTP_HOST) {
+          echo "FTP_HOST length: $($env:FTP_HOST.Length)"
+          echo "FTP_HOST preview: $($env:FTP_HOST.Substring(0, [Math]::Min(10, $env:FTP_HOST.Length)))..."
+        } else {
+          echo "FTP_HOST is NULL or EMPTY!"
+        }
+        echo "=== END DEBUG ==="
       env:
         FTP_HOST: ${{ secrets.FTP_HOST }}
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
       shell: pwsh
         
