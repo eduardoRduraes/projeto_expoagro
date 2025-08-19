@@ -1,0 +1,18 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "php artisan serve --host=0.0.0.0 --port=$PORT"
+
+# Configurações específicas para produção
+[environments.production]
+# Usar arquivo .env.production
+LARAVEL_ENV_FILE = ".env.production"
+
+# Comandos de build automático
+[build.env]
+LARAVEL_SKIP_MIGRATIONS = "false"
+
+# Hook para executar migrations
+[deploy.env]
+RAILWAY_RUN_BUILD_COMMAND = "php artisan migrate --force && php artisan config:cache"
