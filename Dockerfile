@@ -24,9 +24,15 @@ WORKDIR /var/www
 # Copiar arquivos do projeto
 COPY . .
 
-# Instalar dependências
+# Instalar dependências PHP
 RUN composer install --no-dev --optimize-autoloader --no-interaction
-RUN npm install --production && npm run build
+
+# Instalar dependências Node.js (incluindo devDependencies para o build)
+RUN npm install
+RUN npm run build
+
+# Remover devDependencies após o build
+RUN npm prune --production
 
 # Configurar permissões
 RUN chmod -R 755 storage bootstrap/cache
