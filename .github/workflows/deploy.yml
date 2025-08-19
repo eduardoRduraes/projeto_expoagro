@@ -112,18 +112,41 @@ jobs:
         FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
       shell: pwsh
         
-    - name: Deploy to KingHost via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./deploy/
-        server-dir: ${{ secrets.FTP_SERVER_DIR }}
-        exclude: |
-          **/.git*
-          **/.git*/**
-          **/node_modules/**
-          **/tests/**
-          **/.env*
-          **/storage/logs/*
+    - name: Deploy to KingHost via FTP (PowerShell)
+      run: |
+        # Instalar WinSCP se não estiver disponível
+        if (!(Get-Command "WinSCP.exe" -ErrorAction SilentlyContinue)) {
+          Write-Host "Installing WinSCP..."
+          Invoke-WebRequest -Uri "https://winscp.net/download/WinSCP-5.21.8-Portable.zip" -OutFile "winscp.zip"
+          Expand-Archive -Path "winscp.zip" -DestinationPath "winscp" -Force
+          $env:PATH += ";$(Get-Location)\winscp"
+        }
+        
+        # Criar script WinSCP
+        $script = @"
+option batch abort
+option confirm off
+open ftp://$env:FTP_USERNAME`:$env:FTP_PASSWORD@$env:FTP_HOST
+cd $env:FTP_SERVER_DIR
+put deploy\* .
+exit
+"@
+        
+        $script | Out-File -FilePath "upload.txt" -Encoding ASCII
+        
+        # Executar upload
+        Write-Host "Starting FTP upload to $env:FTP_HOST..."
+        & "winscp\WinSCP.com" /script=upload.txt
+        
+        if ($LASTEXITCODE -eq 0) {
+          Write-Host "✅ Deploy completed successfully!"
+        } else {
+          Write-Host "❌ Deploy failed with exit code: $LASTEXITCODE"
+          exit 1
+        }
+      env:
+        FTP_HOST: ${{ secrets.FTP_HOST }}
+        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
+      shell: pwsh
