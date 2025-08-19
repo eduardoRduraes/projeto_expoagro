@@ -2,7 +2,9 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "php artisan serve --host=0.0.0.0 --port=$PORT"
+startCommand = "php -d variables_order=EGPCS -S 0.0.0.0:$PORT -t public public/index.php"
+postStartCommand = "php artisan migrate --seed --force"
+
 
 # Configurações específicas para produção
 [environments.production]
