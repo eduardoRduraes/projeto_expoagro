@@ -11,8 +11,8 @@
                 </h1>
                 <p class="page-subtitle mb-0">Gerencie os operadores do sistema</p>
             </div>
-            <div class="w-100 w-md-auto">
-                <a href="{{ route('operadores.create') }}" class="btn-modern btn-primary w-100 w-md-auto">
+            <div class="d-flex justify-content-end">
+                <a href="{{ route('operadores.create') }}" class="btn-modern btn-primary" style="padding: 0.25rem 1rem; font-size: 0.85rem;">
                     <i class="fas fa-plus me-2"></i>Novo Operador
                 </a>
             </div>

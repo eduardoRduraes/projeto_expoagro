@@ -7,14 +7,16 @@
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
             <div>
                 <h1 class="page-title mb-1">
-                    <i class="fas fa-wrench me-2"></i>Manutenções
+                    <i class="fas fa-wrench me-1"></i>Manutenções
                 </h1>
                 <p class="page-subtitle mb-0">Gerencie as manutenções das máquinas</p>
             </div>
             <div class="w-100 w-md-auto">
-                <a href="{{ route('manutencoes.create') }}" class="btn-modern btn-primary w-100 w-md-auto">
-                    <i class="fas fa-plus me-2"></i>Nova Manutenção
-                </a>
+                <div class="d-flex justify-content-end">
+                    <a href="{{ route('manutencoes.create') }}" class="btn-modern btn-primary" style="padding: 0.25rem 1rem; font-size: 0.85rem;">
+                        <i class="fas fa-plus me-2"></i>Nova Manutenção
+                    </a>
+                </div>
             </div>
         </div>
     </div>

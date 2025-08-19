@@ -207,6 +207,46 @@ body {
     background: linear-gradient(135deg, var(--agro-danger), #ff6b6b) !important;
 }
 
+.badge-info {
+    background: linear-gradient(135deg, #17a2b8, #20c997) !important;
+    color: white !important;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, #ffc107, #fd7e14) !important;
+    color: #212529 !important;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-success {
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+    color: white !important;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-secondary {
+    background: linear-gradient(135deg, #6c757d, #495057) !important;
+    color: white !important;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 /* Navegação */
 .navbar {
     background: linear-gradient(135deg, var(--agro-green-primary), var(--agro-green-secondary)) !important;

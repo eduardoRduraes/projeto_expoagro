@@ -4,12 +4,12 @@
 <div class="page-header">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
         <h1 class="mb-0"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</h1>
-        <div class="d-flex flex-column flex-sm-row gap-2 w-100 w-md-auto">
-            <a href="{{ route('maquinas.create') }}" class="btn-modern btn-primary btn-sm">
-                <i class="fas fa-plus me-1"></i><span class="d-none d-sm-inline">Nova </span>Máquina
+        <div class="d-flex flex-column flex-sm-row gap-1 w-100 w-md-auto">
+            <a href="{{ route('maquinas.create') }}" class="btn-modern btn-primary" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
+                <i class="fas fa-plus me-1" style="font-size: 0.7rem;"></i><span class="d-none d-sm-inline">Nova </span>Máquina
             </a>
-            <a href="{{ route('operadores.create') }}" class="btn-modern btn-success btn-sm">
-                <i class="fas fa-plus me-1"></i><span class="d-none d-sm-inline">Novo </span>Operador
+            <a href="{{ route('operadores.create') }}" class="btn-modern btn-success" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
+                <i class="fas fa-plus me-1" style="font-size: 0.7rem;"></i><span class="d-none d-sm-inline">Novo </span>Operador
             </a>
         </div>
     </div>
