@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -73,7 +73,7 @@ jobs:
         coverage: none
         
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
         cache: 'npm'
@@ -93,20 +93,20 @@ jobs:
       run: tar -czf "${GITHUB_SHA}".tar.gz --exclude=*.git --exclude=node_modules *
       
     - name: Store artifact for distribution
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: app-build
         path: ${{ github.sha }}.tar.gz
         
     - name: Deploy to KingHost
-      uses: appleboy/ssh-action@v0.1.5
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          cd /home/seuusuario
+          cd /home/projetoerpagricola
           wget https://github.com/${{ github.repository }}/releases/download/latest/${{ github.sha }}.tar.gz
           tar -xzf ${{ github.sha }}.tar.gz -C laravel/
           cd laravel
