@@ -13,6 +13,6 @@ LARAVEL_ENV_FILE = ".env.production"
 [build.env]
 LARAVEL_SKIP_MIGRATIONS = "false"
 
-# Hook para executar migrations
+# Hook para executar migrations COM SEEDERS
 [deploy.env]
-RAILWAY_RUN_BUILD_COMMAND = "php artisan migrate --force && php artisan config:cache"
+RAILWAY_RUN_BUILD_COMMAND = "php artisan migrate --seed --force && php artisan config:cache"
