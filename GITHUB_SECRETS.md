@@ -11,12 +11,14 @@ Este arquivo lista todos os secrets que devem ser configurados no GitHub para o 
 
 ## Secrets Obrigatórios
 
+⚠️ **IMPORTANTE**: Todos estes secrets devem ser configurados no GitHub antes do deploy funcionar!
+
 ### Configurações FTP do KingHost
 
 ```
 FTP_HOST
-Valor: seu-dominio.kinghost.net
-Descrição: Servidor FTP do KingHost
+Valor: ftp.seu-dominio.com.br (ou o servidor FTP fornecido pelo KingHost)
+Descrição: Servidor FTP do KingHost - OBRIGATÓRIO
 ```
 
 ```
@@ -151,19 +153,52 @@ Após configurar todos os secrets:
 
 ## Troubleshooting
 
-### Deploy falha na etapa FTP
+### ❌ Erro: "Input required and not supplied: server"
+**Causa**: O secret `FTP_HOST` não foi configurado no GitHub.
+**Solução**: 
+1. Vá em Settings > Secrets and variables > Actions
+2. Adicione o secret `FTP_HOST` com o servidor FTP do KingHost
+3. Exemplo: `ftp.seudominio.com.br` ou o servidor fornecido pelo KingHost
+
+### ❌ Deploy falha na etapa FTP
 - Verifique se FTP_HOST, FTP_USERNAME e FTP_PASSWORD estão corretos
 - Confirme se FTP_SERVER_DIR existe no servidor
+- Teste as credenciais FTP manualmente com um cliente FTP
 
-### Site não carrega após deploy
+### ❌ Site não carrega após deploy
 - Verifique se APP_URL está correto
 - Confirme se o arquivo .htaccess foi criado
 - Verifique permissões das pastas storage/ e bootstrap/cache/
 
-### Erro de banco de dados
+### ❌ Erro de banco de dados
 - Confirme credenciais do banco (DB_*)
 - Execute migrações manualmente se necessário
 - Verifique se o banco foi criado no painel KingHost
+
+### 🔍 Checklist de Verificação dos Secrets
+
+Antes de fazer deploy, confirme que TODOS estes secrets estão configurados:
+
+**FTP (Obrigatórios para deploy)**
+- [ ] FTP_HOST
+- [ ] FTP_USERNAME  
+- [ ] FTP_PASSWORD
+- [ ] FTP_SERVER_DIR
+
+**Aplicação (Obrigatórios para funcionamento)**
+- [ ] APP_KEY
+- [ ] APP_URL
+
+**Banco de Dados (Obrigatórios se usar MySQL)**
+- [ ] DB_HOST
+- [ ] DB_DATABASE
+- [ ] DB_USERNAME
+- [ ] DB_PASSWORD
+
+**Email (Opcionais)**
+- [ ] MAIL_USERNAME
+- [ ] MAIL_PASSWORD
+- [ ] MAIL_FROM_ADDRESS
 
 ---
 
