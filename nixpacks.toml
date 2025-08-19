@@ -1,10 +1,13 @@
+# Configuração Nixpacks para Railway
+# Otimizado para Laravel 11 com PHP 8.2
+
 [phases.setup]
 nixPkgs = ['php82', 'nodejs_18', 'npm']
 
 [phases.install]
 cmds = [
-    'composer install --no-dev --optimize-autoloader',
-    'npm ci',
+    'composer install --no-dev --optimize-autoloader --no-interaction',
+    'npm ci --only=production',
     'npm run build'
 ]
 
@@ -12,7 +15,8 @@ cmds = [
 cmds = [
     'php artisan config:cache',
     'php artisan route:cache',
-    'php artisan view:cache'
+    'php artisan view:cache',
+    'chmod -R 755 storage bootstrap/cache'
 ]
 
 [start]

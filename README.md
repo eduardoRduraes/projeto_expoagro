@@ -2,11 +2,7 @@
 
 Sistema de gerenciamento para controle de máquinas agrícolas, operadores e manutenções.
 
-## 🚀 Deploy Automático
 
-[![Deploy to Railway](https://railway.app/button.svg)](https://railway.app/new/template)
-
-Este projeto está configurado para deploy automático no **Railway** via GitHub Actions.
 
 ## 📋 Sobre o Sistema
 
@@ -65,14 +61,7 @@ Sistema web desenvolvido em Laravel para gerenciamento completo de implementos a
 - MySQL >= 8.0 ou SQLite
 - Git
 
-## 🚀 Deploy no Railway
-
-### Opção 1: Deploy Automático (Recomendado)
-1. Faça fork deste repositório
-2. Conecte seu GitHub ao Railway
-3. Siga o guia completo: [RAILWAY_SETUP.md](RAILWAY_SETUP.md)
-
-### Opção 2: Instalação Local
+## 🛠️ Instalação Local
 
 #### 1. Clone o repositório
 ```bash
