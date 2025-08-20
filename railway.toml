@@ -1,0 +1,29 @@
+[build]
+builder = "nixpacks"
+watchPatterns = ["**/*.php", "**/*.js", "**/*.css"]
+
+[deploy]
+startCommand = "php deploy.php"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
+
+[environments.production]
+variables = {
+  APP_NAME = "Projeto ExpoAgro",
+  APP_ENV = "production",
+  APP_DEBUG = "false",
+  APP_LOCALE = "pt_BR",
+  APP_FALLBACK_LOCALE = "pt_BR",
+  APP_FAKER_LOCALE = "pt_BR",
+  DB_CONNECTION = "sqlite",
+  DB_DATABASE = "/app/database/banco.sqlite",
+  SESSION_DRIVER = "file",
+  SESSION_LIFETIME = "120",
+  CACHE_STORE = "file",
+  QUEUE_CONNECTION = "sync",
+  LOG_CHANNEL = "single",
+  LOG_LEVEL = "error",
+  BROADCAST_CONNECTION = "log",
+  FILESYSTEM_DISK = "local",
+  PORT = "8080"
+}

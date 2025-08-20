@@ -1,38 +1,38 @@
-name: Deploy to kinghost
+# name: Deploy to kinghost
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🔥 Configuring checkout V3
-        uses: actions/checkout@v3
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: 🔥 Configuring checkout V3
+#         uses: actions/checkout@v3
 
-      - name: 🔥 Configuring Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 'latest'
+#       - name: 🔥 Configuring Node
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 'latest'
 
-      - name: 🔨 Installing Node dependencies
-        run: npm install
+#       - name: 🔨 Installing Node dependencies
+#         run: npm install
 
-      - name: 📄 Making .env
-        run: |
-          echo "${{ secrets.ENV_DEPLOY }}" > .env
+#       - name: 📄 Making .env
+#         run: |
+#           echo "${{ secrets.ENV_DEPLOY }}" > .env
 
-      - name: 🔨 Building application
-        run: npm run build
+#       - name: 🔨 Building application
+#         run: npm run build
 
-      - name: 📂 Upload files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_ADDRESS }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./public/build/
-          server-dir: ./projects/project-abc/public/build/
-          dangerous-clean-slate: true
+#       - name: 📂 Upload files
+#         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+#         with:
+#           server: ${{ secrets.FTP_ADDRESS }}
+#           username: ${{ secrets.FTP_USERNAME }}
+#           password: ${{ secrets.FTP_PASSWORD }}
+#           local-dir: ./public/build/
+#           server-dir: ./projects/project-abc/public/build/
+#           dangerous-clean-slate: true

@@ -111,13 +111,12 @@ class ManutencaoController extends Controller
     public function update(Request $request, Manutencao $manutencao)
     {
         $request->validate([
-            'descricao' => 'required|string|max:255',
-            'tipo' => 'required|in:preventiva,corretiva',
-            'status' => 'required|in:livre,manutencao',
-            'custo' => 'required|numeric|min:0',
-            'data_manutencao' => 'required|date',
-            'responsavel' => 'required|string|max:255',
             'maquina_id' => 'required|exists:maquinas,id',
+            'descricao' => 'required|string|min:5',
+            'tipo' => 'required|in:preventiva,corretiva,preditiva',
+            'custo' => 'nullable|numeric|min:0',
+            'data_manutencao' => 'required|date',
+            'responsavel' => 'nullable|string|max:255', // Tornar opcional se necessário
         ]);
 
         $manutencao->update($request->all());
