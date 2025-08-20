@@ -2,9 +2,12 @@
 
 echo "🚀 Iniciando deploy do Projeto ExpoAgro...\n";
 
-// Configurar diretório do banco
-$dbPath = 'database/banco.sqlite';
+// Configurar diretório do banco - usar variável de ambiente ou caminho absoluto
+$dbPath = $_ENV['DB_DATABASE'] ?? '/app/database/banco.sqlite';
 $dbDir = dirname($dbPath);
+
+echo "📍 Caminho do banco: {$dbPath}\n";
+echo "📁 Diretório do banco: {$dbDir}\n";
 
 // Criar diretório do banco se não existir
 if (!is_dir($dbDir)) {
@@ -29,6 +32,12 @@ if (!file_exists($dbPath)) {
 } else {
     echo "🗄️ Arquivo do banco já existe: {$dbPath}\n";
 }
+
+// Definir a variável de ambiente para os comandos Artisan
+$_ENV['DB_DATABASE'] = $dbPath;
+putenv("DB_DATABASE={$dbPath}");
+
+echo "🔧 Variável DB_DATABASE definida: " . getenv('DB_DATABASE') . "\n";
 
 // Comandos Laravel
 $commands = [
