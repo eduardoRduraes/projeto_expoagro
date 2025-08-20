@@ -1,6 +1,24 @@
 [phases.setup]
-nixPkgs = ["php82", "php82Packages.composer"]
+# Instala PHP, Composer e Node (para Vite)
+# nodejs_20 funciona bem; se der erro, troque por "nodejs" simples
+nixPkgs = ["php82", "php82Packages.composer", "nodejs_20"]
 
+[phases.install]
+# Dependências PHP (prod) – ajuste se precisar de ext específicas
+cmds = [
+  "composer install --no-dev --prefer-dist --optimize-autoloader"
+]
+
+[phases.build]
+# Dependências Node + build do Vite
+# usa npm ci se existir lockfile; senão cai para npm install
+cmds = [
+  "bash -lc 'if [ -f package-lock.json ]; then npm ci --include=dev; else npm install --include=dev; fi'",
+  "npm run build",
+  # cria o symlink do storage sem travar o build caso já exista
+  "php artisan storage:link || true"
+]
 
 [start]
-cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
+# Sirva a app pelo PHP embutido apontando para /public (melhor que artisan serve)
+cmd = "php -d variables_order=EGPCS -S 0.0.0.0:$PORT -t public public/index.php"

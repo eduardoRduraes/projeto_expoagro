@@ -9,7 +9,7 @@ cp .env.railway .env
 php artisan key:generate --force
 
 # Criar banco SQLite
-touch database/database.sqlite
+# touch database/database.sqlite
 
 # Executar migrações
 php artisan migrate --force
