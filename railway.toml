@@ -24,5 +24,6 @@ variables = {
   LOG_CHANNEL = "single",
   LOG_LEVEL = "error",
   BROADCAST_CONNECTION = "log",
-  FILESYSTEM_DISK = "local"
+  FILESYSTEM_DISK = "local",
+  PORT = "8080"
 }

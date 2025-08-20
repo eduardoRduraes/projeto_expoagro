@@ -1,40 +1,67 @@
 <?php
 
 echo "🚀 Iniciando deploy do Projeto ExpoAgro...\n";
+echo "📅 Data/Hora: " . date('Y-m-d H:i:s') . "\n";
 
-// Configurar diretório do banco - usar variável de ambiente ou caminho absoluto
-$dbPath = $_ENV['DB_DATABASE'] ?? '/app/database/banco.sqlite';
+// Configurar banco SQLite
+$dbPath = '/app/database/banco.sqlite';
 $dbDir = dirname($dbPath);
 
 echo "📍 Caminho do banco: {$dbPath}\n";
 echo "📁 Diretório do banco: {$dbDir}\n";
 
-// Criar diretório do banco se não existir
+// Criar diretório do banco
 if (!is_dir($dbDir)) {
-    if (mkdir($dbDir, 0755, true)) {
-        echo "✅ Diretório criado: {$dbDir}\n";
-    } else {
-        echo "❌ Erro ao criar diretório: {$dbDir}\n";
-        exit(1);
-    }
+    mkdir($dbDir, 0755, true);
+    echo "📁 Diretório criado: {$dbDir}\n";
 } else {
     echo "📁 Diretório já existe: {$dbDir}\n";
 }
 
-// Criar arquivo do banco se não existir
+// Criar arquivo do banco
 if (!file_exists($dbPath)) {
-    if (touch($dbPath)) {
-        echo "✅ Arquivo do banco criado: {$dbPath}\n";
-    } else {
-        echo "❌ Erro ao criar arquivo do banco: {$dbPath}\n";
-        exit(1);
-    }
+    touch($dbPath);
+    echo "✅ Arquivo do banco criado: {$dbPath}\n";
 } else {
-    echo "🗄️ Arquivo do banco já existe: {$dbPath}\n";
+    echo "🗄️ Arquivo do banco já existe\n";
 }
 
-// Definir a variável de ambiente para os comandos Artisan
+// CRIAR ARQUIVO .ENV
+echo "\n=== CRIANDO ARQUIVO .ENV ===\n";
+$envContent = <<<ENV
+APP_NAME="Projeto ExpoAgro"
+APP_ENV=production
+APP_KEY=
+APP_DEBUG=false
+APP_URL=https://projetoexpoagro.up.railway.app
+
+APP_LOCALE=pt_BR
+APP_FALLBACK_LOCALE=pt_BR
+APP_FAKER_LOCALE=pt_BR
+
+LOG_CHANNEL=single
+LOG_LEVEL=error
+
+DB_CONNECTION=sqlite
+DB_DATABASE={$dbPath}
+
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+
+CACHE_STORE=file
+QUEUE_CONNECTION=sync
+
+BROADCAST_CONNECTION=log
+FILESYSTEM_DISK=local
+ENV;
+
+file_put_contents('/app/.env', $envContent);
+echo "✅ Arquivo .env criado\n";
+
+// Definir variáveis de ambiente
+$_ENV['DB_CONNECTION'] = 'sqlite';
 $_ENV['DB_DATABASE'] = $dbPath;
+putenv("DB_CONNECTION=sqlite");
 putenv("DB_DATABASE={$dbPath}");
 
 echo "🔧 Variável DB_DATABASE definida: " . getenv('DB_DATABASE') . "\n";
@@ -44,7 +71,6 @@ $commands = [
     'php artisan key:generate --force' => 'Gerando chave da aplicação',
     'php artisan config:clear' => 'Limpando cache de configuração',
     'php artisan migrate --force' => 'Executando migrações',
-    'php artisan db:seed --force' => 'Executando seeders',
     'php artisan route:cache' => 'Criando cache de rotas',
     'php artisan view:cache' => 'Criando cache de views',
     'php artisan config:cache' => 'Criando cache de configuração'
@@ -63,13 +89,12 @@ foreach ($commands as $command => $description) {
         if (!empty($output)) {
             echo "   Saída: " . implode("\n   ", $output) . "\n";
         }
-        // Continuar mesmo com avisos
     }
 }
 
 echo "🎉 Deploy concluído com sucesso!\n";
-echo "🌐 Iniciando servidor na porta " . ($_ENV['PORT'] ?? '8000') . "...\n";
+echo "🌐 Iniciando servidor na porta " . ($_ENV['PORT'] ?? '8080') . "...\n";
 
 // Iniciar servidor
-$port = $_ENV['PORT'] ?? 8000;
+$port = $_ENV['PORT'] ?? 8080;
 passthru("php artisan serve --host=0.0.0.0 --port={$port}");
