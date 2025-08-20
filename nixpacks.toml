@@ -12,31 +12,3 @@ cmds = ["npm run build"]
 
 [start]
 cmd = "sh -lc 'set -e; DB_FILE=${DB_DATABASE:-/app/database/banco.sqlite}; mkdir -p \"$(dirname \"$DB_FILE\")\"; [ -f \"$DB_FILE\" ] || touch \"$DB_FILE\"; export DB_DATABASE=\"$DB_FILE\"; php artisan config:clear && php artisan migrate --force --seed && php artisan route:cache && php artisan view:cache && php artisan config:cache && php artisan serve --host=0.0.0.0 --port=$PORT'"
-
-
-## Como resolver sem acesso direto ao container
-
-Já que não temos Shell no Railway e o CLI roda localmente, a melhor abordagem é garantir que as migrações e seeds rodem automaticamente no **start do container**.
-
-### 1) Adicione DB_DATABASE nas variáveis do Railway
-No painel Railway → Service → Variables:
-- `DB_DATABASE` = `/app/database/banco.sqlite`
-
-Essa é a variável mais importante que está faltando.
-
-### 2) Atualize o nixpacks.toml para rodar migrações no start
-```toml
-[phases.setup]
-nixPkgs = ["php82", "php82Packages.composer", "nodejs_20"]
-
-[phases.install]
-cmds = [
-  "composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader",
-  "npm ci"
-]
-
-[phases.build]
-cmds = ["npm run build"]
-
-[start]
-cmd = "sh -lc 'set -e; DB_FILE=${DB_DATABASE:-/app/database/banco.sqlite}; mkdir -p \"$(dirname \"$DB_FILE\")\"; [ -f \"$DB_FILE\" ] || touch \"$DB_FILE\"; export DB_DATABASE=\"$DB_FILE\"; php artisan config:clear && php artisan migrate --force --seed && php artisan route:cache && php artisan view:cache && php artisan config:cache && php artisan serve --host=0.0.0.0 --port=$PORT'"
