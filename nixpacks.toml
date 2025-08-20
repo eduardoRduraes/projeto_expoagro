@@ -2,51 +2,7 @@
 nixPkgs = ["php82", "php82Packages.composer"]
 
 [phases.install]
-cmds = ["composer install --no-dev --optimize-autoloader"]
-
-[phases.build]
-cmds = ["php artisan migrate --force"]
-
-[start]
-cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
-
-## **2. Ou use Variable References (Mais fácil):**
-
-1. **No painel Railway → Variables**
-2. **Clique em "Add Variable Reference"**
-3. **Selecione o serviço MySQL**
-4. **Mapeie as variáveis:**
-   - `MYSQLHOST` → `DB_HOST`
-   - `MYSQLPORT` → `DB_PORT`
-   - `MYSQLDATABASE` → `DB_DATABASE`
-   - `MYSQLUSER` → `DB_USERNAME`
-   - `MYSQLPASSWORD` → `DB_PASSWORD`
-5. **Adicione manualmente:**
-   - `DB_CONNECTION` = `mysql`
-
-## **3. Force o uso do MySQL no nixpacks.toml:**
-```toml
-[phases.setup]
-nixPkgs = ["php82", "php82Packages.composer", "nodejs_18"]
-
-[phases.install]
-cmds = [
-  "composer install --no-dev --optimize-autoloader"
-]
-
-[phases.build]
-cmds = [
-  "mkdir -p storage/framework/cache",
-  "mkdir -p storage/framework/views",
-  "mkdir -p storage/framework/sessions",
-  "chmod -R 777 storage",
-  "chmod -R 777 bootstrap/cache",
-  "php artisan storage:link",
-  "php artisan migrate --force",
-  "php artisan config:cache",
-  "php artisan route:cache",
-  "php artisan view:cache"
-]
+cmds = ["composer install --no-dev"]
 
 [start]
 cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
