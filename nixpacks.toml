@@ -1,14 +1,19 @@
 [phases.setup]
-nixPkgs = ["php82", "php82Packages.composer"]
+nixPkgs = ["php82", "php82Packages.composer", "nodejs_20"]
 
 [phases.install]
-cmds = ["composer install --no-dev"]
+cmds = ["composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader"]
 
 [phases.build]
 cmds = [
-  "cp .env.example .env",
-  "php artisan migrate --force"
+  "npm ci",
+  "npm run build"
+]
+cmds = [
+  "php artisan config:cache",
+  "php artisan route:cache",
+  "php artisan view:cache"
 ]
 
 [start]
-cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "sh -lc 'DB_FILE=${DB_DATABASE:-/app/database/database.sqlite}; mkdir -p \"$(dirname \"$DB_FILE\")\"; [ -f \"$DB_FILE\" ] || touch \"$DB_FILE\"; php artisan migrate --force; php artisan config:cache; php artisan route:cache; php artisan view:cache; php artisan serve --host=0.0.0.0 --port=$PORT'"
