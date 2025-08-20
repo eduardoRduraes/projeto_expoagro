@@ -24,11 +24,8 @@ class UsoMaquina extends Model
 
     protected $casts = [
         'data' => 'date',
-        'hora_inicio' => 'datetime:H:i',
-        'hora_fim' => 'datetime:H:i',
         'total_horas' => 'decimal:3',
     ];
-
 
     public function maquina(): BelongsTo
     {

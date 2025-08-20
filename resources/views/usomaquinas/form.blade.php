@@ -114,7 +114,7 @@
     </label>
     <input type="date" class="form-control @error('data') is-invalid @enderror" 
            id="data" name="data" 
-           value="{{ old('data', $usomaquina->data ?? '') }}" 
+           value="{{ old('data', isset($usomaquina) && $usomaquina->data ? $usomaquina->data->format('Y-m-d') : '') }}" 
            max="{{ date('Y-m-d') }}" required>
     @error('data')
         <div class="invalid-feedback">{{ $message }}</div>
@@ -183,4 +183,7 @@
     @enderror
     <div class="form-text">Informações complementares sobre o uso da máquina</div>
 </div>
+
+<!-- Adicione este campo hidden antes do botão submit -->
+<input type="hidden" name="total_horas" id="total_horas" value="{{ old('total_horas', $usomaquina->total_horas ?? '0') }}">
 

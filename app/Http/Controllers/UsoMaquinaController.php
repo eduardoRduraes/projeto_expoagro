@@ -130,17 +130,16 @@ class UsoMaquinaController extends Controller
             'maquina_id' => 'required|exists:maquinas,id',
             'operador_id' => 'required|exists:operadores,id',
             'data' => 'required|date',
-            'hora_inicio' => 'required|date_format:H:i',
-            'hora_fim' => 'required|date_format:H:i|after:hora_inicio',
-            'total_horas' => 'required|numeric',
+            'hora_inicio' => 'required|date_format:H:i', // Mudança aqui
+            'hora_fim' => 'required|date_format:H:i|after:hora_inicio', // Mudança aqui
             'tarefa' => 'nullable|string|max:255',
             'observacao' => 'nullable|string|max:200',
         ]);
-
+    
         $inicio = strtotime($request->hora_inicio);
         $fim = strtotime($request->hora_fim);
         $total_horas = round(($fim - $inicio) / 3600, 2);
-
+    
         $usomaquina->update([
             'maquina_id' => $request->maquina_id,
             'operador_id' => $request->operador_id,
@@ -151,7 +150,7 @@ class UsoMaquinaController extends Controller
             'tarefa' => $request->tarefa,
             'observacao' => $request->observacao,
         ]);
-
+    
         return redirect()->route('usomaquinas.index')->with('success', 'Uso Maquina Atualizada com Sucesso!');
     }
 
