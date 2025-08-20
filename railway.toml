@@ -3,7 +3,7 @@ builder = "nixpacks"
 watchPatterns = ["**/*.php", "**/*.js", "**/*.css"]
 
 [deploy]
-startCommand = "sh -lc 'DB_FILE=${DB_DATABASE:-/app/database/database.sqlite}; mkdir -p \"$(dirname \"$DB_FILE\")\"; [ -f \"$DB_FILE\" ] || touch \"$DB_FILE\"; php artisan migrate --force; php artisan config:cache; php artisan route:cache; php artisan view:cache; php artisan serve --host=0.0.0.0 --port=$PORT'"
+startCommand = "sh -lc 'set -e; DB_FILE=${DB_DATABASE:-/app/database/banco.sqlite}; mkdir -p \"$(dirname \"$DB_FILE\")\"; [ -f \"$DB_FILE\" ] || touch \"$DB_FILE\"; export DB_DATABASE=\"$DB_FILE\"; php artisan config:clear && php artisan migrate --force --seed && php artisan route:cache && php artisan view:cache && php artisan config:cache && php artisan serve --host=0.0.0.0 --port=$PORT'"
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
 
@@ -16,7 +16,7 @@ variables = {
   APP_FALLBACK_LOCALE = "pt_BR",
   APP_FAKER_LOCALE = "pt_BR",
   DB_CONNECTION = "sqlite",
-  DB_DATABASE = "/app/database/database.sqlite",
+  DB_DATABASE = "/app/database/banco.sqlite",
   SESSION_DRIVER = "file",
   SESSION_LIFETIME = "120",
   CACHE_STORE = "file",
