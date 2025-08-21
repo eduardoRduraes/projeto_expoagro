@@ -325,5 +325,6 @@ class RelatorioController extends Controller
         ));
 
         return $pdf->download('relatorio-produtividade-' . $dataInicio . '-' . $dataFim . '.pdf');
+        
     }
 }
