@@ -154,14 +154,20 @@ class RelatorioController extends Controller
 
         // Uso por dia da semana
         $usoPorDiaSemana = UsoMaquina::whereBetween('data', [$dataInicio, $dataFim])
-            ->select(DB::raw('strftime("%w", data) as dia_semana'), DB::raw('SUM(total_horas) as total_horas'))
+            ->select(DB::raw('CAST(strftime("%w", data) AS INTEGER) as dia_semana'), DB::raw('SUM(total_horas) as total_horas'))
             ->groupBy('dia_semana')
             ->orderBy('dia_semana')
             ->get()
             ->mapWithKeys(function ($item) {
                 $dias = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-                return [$dias[$item->dia_semana] => $item->total_horas];
-            });
+                // Garantir que dia_semana seja um número válido
+                $diaSemana = (int) $item->dia_semana;
+                if ($diaSemana >= 0 && $diaSemana <= 6) {
+                    return [$dias[$diaSemana] => $item->total_horas];
+                }
+                return [];
+            })
+            ->filter(); // Remove entradas vazias
 
         return view('relatorios.produtividade', compact(
             'produtividadeOperadores', 'produtividadeMaquinas', 'usoPorDiaSemana',
@@ -298,23 +304,20 @@ class RelatorioController extends Controller
             });
 
         $usoPorDiaSemana = UsoMaquina::whereBetween('data', [$dataInicio, $dataFim])
-            // Encontre a query que usa strftime e substitua por:
-            
-            // ❌ ERRADO (SQLite):
-            // select strftime("%w", data) as dia_semana, SUM(total_horas) as total_horas
-            
-            // ✅ CORRETO (MySQL):
-            // select DAYOFWEEK(data) as dia_semana, SUM(total_horas) as total_horas
-            
-            // Ou use WEEKDAY se quiser começar na segunda-feira:
-            // select WEEKDAY(data) as dia_semana, SUM(total_horas) as total_horas
+            ->select(DB::raw('CAST(strftime("%w", data) AS INTEGER) as dia_semana'), DB::raw('SUM(total_horas) as total_horas'))
             ->groupBy('dia_semana')
             ->orderBy('dia_semana')
             ->get()
             ->mapWithKeys(function ($item) {
                 $dias = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-                return [$dias[$item->dia_semana] => $item->total_horas];
-            });
+                // Garantir que dia_semana seja um número válido
+                $diaSemana = (int) $item->dia_semana;
+                if ($diaSemana >= 0 && $diaSemana <= 6) {
+                    return [$dias[$diaSemana] => $item->total_horas];
+                }
+                return [];
+            })
+            ->filter(); 
 
         $pdf = Pdf::loadView('relatorios.pdf.produtividade', compact(
             'produtividadeOperadores', 'produtividadeMaquinas', 'usoPorDiaSemana',
